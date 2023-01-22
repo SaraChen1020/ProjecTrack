@@ -1,1 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+
+/* variables */
+:root {
+  --heading-color: #444;
+  --text-color: #999;
+  --primary-color: #0cbbc7;
+  --secondary-color:#fff0ac;
+  --highlight-color: #d33b6e;
+  --bg-color: #f7f7f7;
+}
+
+/* base styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Noto Sans TC, Poppins, sans-serif, Microsoft JhengHei;
+    margin: 0;
+    font-size: 18px;
+    background: var(--bg-color);
+}
+
+ul, li, p, h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
 

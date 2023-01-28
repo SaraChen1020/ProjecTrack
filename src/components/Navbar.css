@@ -11,8 +11,17 @@
 }
 
 .navbar .title {
+  display: flex;
+  align-items: center;
   font-size: 28px;
   font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar .t-type {
+  object-fit: cover;
+  height: 36px;
+  width: 26px;
 }
 
 .navbar ul {

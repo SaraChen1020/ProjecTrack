@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 // styles
 import "./Navbar.css";
+import T from "../images/t-type.png";
 
 export default function Navbar() {
   const { logout } = useLogout();
@@ -16,7 +17,11 @@ export default function Navbar() {
         <ul>
           <li className="logo-icon">
             <Link to="/">
-              <span className="title">ProjecTrack</span>
+              <span className="title">
+                Projec
+                <img src={T} className="t-type" alt="T" />
+                rack
+              </span>
             </Link>
           </li>
 

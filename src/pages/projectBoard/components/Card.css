@@ -1,0 +1,23 @@
+.card-area {
+  margin: 10px 0;
+}
+.card-area .card {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 4px;
+  background: white;
+  padding: 6px;
+}
+
+.card-area input {
+  height: 40px;
+  outline: none;
+  border: 0;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: Noto Sans TC;
+  border-radius: 4px;
+  padding: 6px;
+}

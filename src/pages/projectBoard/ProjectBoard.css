@@ -1,0 +1,47 @@
+.project-board {
+  width: 100%;
+  min-height: 700px;
+  background-image: url("../../images/project-background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.project-board .content {
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+.project-board .project-title-input {
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  width: 260px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 30px;
+}
+
+.project-board .project-title {
+  margin-bottom: 30px;
+  width: 260px;
+  height: 30px;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.project-title .edit-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.project-title .edit-icon:hover {
+  color: var(--primary-color);
+}
+
+.project-board .board-area {
+  display: flex;
+  gap: 20px;
+}

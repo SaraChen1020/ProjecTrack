@@ -1,0 +1,111 @@
+.board {
+  flex: 1;
+  border-radius: 5px;
+  max-width: 260px;
+  height: fit-content;
+  padding: 10px;
+}
+
+.board .status {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.board .status-title {
+  display: flex;
+  align-items: center;
+  padding-left: 3px;
+  padding-right: 9px;
+  border-radius: 10px;
+}
+
+.board .status-icon {
+  font-size: 24px;
+}
+
+.board .edit-icon {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.board .edit-icon:hover {
+  color: var(--primary-color);
+}
+
+.board .edit-board-title-input {
+  outline: none;
+  width: 80px;
+  border: 0;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.board .check-icon {
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 24px;
+}
+
+.board .check-icon:hover {
+  color: var(--primary-color);
+}
+
+.board .add-card {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.board .addCard-input {
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  border-radius: 4px;
+  font-family: Noto Sans TC;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid var(--text-color);
+  padding: 6px;
+}
+
+.board-0 {
+  background: rgba(255, 253, 189, 0.7);
+}
+
+.board-0 .status-title {
+  background: rgb(243, 241, 212);
+}
+
+.board-0 .status-icon {
+  color: rgb(210, 208, 96);
+}
+
+.board-1 {
+  background: rgba(194, 244, 251, 0.7);
+}
+
+.board-1 .status-title {
+  background: rgb(211, 229, 239);
+}
+
+.board-1 .status-icon {
+  color: rgb(91, 151, 189);
+}
+
+.board-2 {
+  background: rgba(216, 254, 207, 0.7);
+}
+
+.board-2 .status-title {
+  background: rgb(219, 237, 219);
+}
+
+.board-2 .status-icon {
+  color: rgb(108, 155, 125);
+}

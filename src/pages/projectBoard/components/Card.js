@@ -1,20 +1,19 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { projectFirestore } from "../../../utils/firebase";
 
 // styles
 import "./Card.css";
 
-const Card = ({ id, index, boardId, value, dispatch }) => {
+const Card = ({ id, index, boardId, value, documents }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [cardTitle, setCardTitle] = useState(value);
+  const { user } = useAuthContext();
 
-  function contentChange(e) {
-    dispatch({
-      type: "CHANGE_CARD_VALUE",
-      payload: {
-        cardValue: e.target.value,
-        cardId: id,
-        boardId: boardId,
-      },
-    });
+  async function changeTitle(newCardTitle) {
+    const ref = doc(projectFirestore, ` ${user.uid}`, documents.id);
+    await updateDoc(ref, { [`cards.byId.${id}`]: newCardTitle });
   }
 
   return (
@@ -22,10 +21,11 @@ const Card = ({ id, index, boardId, value, dispatch }) => {
       {isEditing ? (
         <input
           autoFocus
-          value={value}
-          onChange={contentChange}
+          value={cardTitle}
+          onChange={e => setCardTitle(e.target.value)}
           onKeyPress={e => {
             if (e.key === "Enter") {
+              changeTitle(cardTitle);
               setIsEditing(false);
             }
           }}
@@ -37,7 +37,7 @@ const Card = ({ id, index, boardId, value, dispatch }) => {
             setIsEditing(true);
           }}
         >
-          {value}
+          {cardTitle}
         </li>
       )}
     </ul>

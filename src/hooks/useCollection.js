@@ -9,7 +9,7 @@ import {
 import { useState, useReducer, useEffect } from "react";
 
 export const useCollection = uid => {
-  const [documents, setDocuments] = useState(null);
+  const [documents, setDocuments] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -23,13 +23,15 @@ export const useCollection = uid => {
         if (querySnapshot.empty) {
           console.log("No document");
         } else {
-          // let results = [];
+          let results = [];
           querySnapshot.forEach(doc => {
-            setDocuments({ id: doc.id, ...doc.data() });
+            // setDocuments({ id: doc.id, ...doc.data() });
+            results.push({ id: doc.id, ...doc.data() });
           });
 
           // update state
           setError(null);
+          setDocuments(results);
         }
       },
       error => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { RxDotFilled } from "react-icons/rx";
 import { TiPencil } from "react-icons/ti";
 import { BsCheck } from "react-icons/bs";
@@ -11,7 +11,18 @@ import { v4 } from "uuid";
 import "./Board.css";
 import Card from "./Card";
 
-const Board = ({ index, boardId, title, cardIds, cardsById, documents }) => {
+const Board = ({
+  index,
+  boardId,
+  title,
+  cardIds,
+  cardsById,
+  document,
+  draggingItem,
+  draggingBoard,
+  dragOverItem,
+  dragOverBoard,
+}) => {
   const [isEditingName, setIsEditingName] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -19,7 +30,7 @@ const Board = ({ index, boardId, title, cardIds, cardsById, documents }) => {
   const [boardTitle, setBoardTitle] = useState(title);
 
   async function changeTitle(newBoardTitle) {
-    const ref = doc(projectFirestore, ` ${user.uid}`, documents.id);
+    const ref = doc(projectFirestore, user.uid, document.id);
     await updateDoc(ref, { [`boards.byId.${boardId}.name`]: newBoardTitle });
   }
 
@@ -30,16 +41,25 @@ const Board = ({ index, boardId, title, cardIds, cardsById, documents }) => {
     setIsAddingCard(false);
 
     const newCardId = v4();
-    const ref = doc(projectFirestore, ` ${user.uid}`, documents.id);
+    const ref = doc(projectFirestore, user.uid, document.id);
     await updateDoc(ref, {
       [`boards.byId.${boardId}.cardIds`]: arrayUnion(newCardId),
       [`cards.byId.${newCardId}`]: newCardValue.trim(),
     });
   }
 
+  const handleDragEnter = (e, boardId) => {
+    dragOverBoard.current = boardId;
+  };
+
   return (
     <div className={`board board-${index}`}>
-      <span className="status">
+      <span
+        className="status"
+        draggable
+        onDragEnter={e => handleDragEnter(e, boardId)}
+        onDragOver={e => e.preventDefault()}
+      >
         <div className="status-title">
           <RxDotFilled className="status-icon" />
           {isEditingName ? (
@@ -89,7 +109,11 @@ const Board = ({ index, boardId, title, cardIds, cardsById, documents }) => {
           index={index}
           boardId={boardId}
           value={cardsById[i]}
-          documents={documents}
+          document={document}
+          draggingItem={draggingItem}
+          draggingBoard={draggingBoard}
+          dragOverItem={dragOverItem}
+          dragOverBoard={dragOverBoard}
         />
       ))}
 

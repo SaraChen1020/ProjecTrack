@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { projectAuth } from "../utils/firebase";
 import { useAuthContext } from "./useAuthContext";
+import { useAddProject } from "./useAddProject";
 import { useNavigate } from "react-router-dom";
 
 export const useSignup = () => {
@@ -9,6 +10,7 @@ export const useSignup = () => {
   const [error, setError] = useState(null);
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
+  const { addProject } = useAddProject();
 
   const signup = async (email, password, displayName) => {
     setIsLoading(true);
@@ -31,7 +33,10 @@ export const useSignup = () => {
       });
 
       // dispatch login action
-      dispatch({ type: "LOGIN", information: response.user });
+      dispatch({ type: "LOGIN", payload: response.user });
+
+      // 新增預設專案
+      await addProject(response.user.uid);
 
       setError(null);
       setIsLoading(false);

@@ -25,7 +25,7 @@ export const useLogin = () => {
         throw new Error("Could not complete login");
       }
       // dispatch login action
-      dispatch({ type: "LOGIN", information: response.user });
+      dispatch({ type: "LOGIN", payload: response.user });
 
       setIsLoading(false);
       setError(null);

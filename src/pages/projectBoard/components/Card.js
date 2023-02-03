@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useUpdateData } from "../../../hooks/useUpdateData";
 import { doc, updateDoc } from "firebase/firestore";
 import { projectFirestore } from "../../../utils/firebase";
 
@@ -20,11 +21,8 @@ const Card = ({
   const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(value);
+  const { changeCardTitle } = useUpdateData();
   const ref = doc(projectFirestore, user.uid, document.id);
-
-  async function changeTitle(newCardTitle) {
-    await updateDoc(ref, { [`cards.byId.${id}`]: newCardTitle });
-  }
 
   const handleDragStart = (e, index, boardId) => {
     draggingItem.current = index;
@@ -36,7 +34,7 @@ const Card = ({
     dragOverBoard.current = boardId;
   };
 
-  const handleDragEnd = async e => {
+  const handleDragEnd = async (e) => {
     const dragList = document.boards.byId[draggingBoard.current].cardIds;
     const overList = document.boards.byId[dragOverBoard.current].cardIds;
 
@@ -80,16 +78,16 @@ const Card = ({
         <input
           autoFocus
           value={cardTitle}
-          onChange={e => setCardTitle(e.target.value)}
-          onKeyPress={e => {
+          onChange={(e) => setCardTitle(e.target.value)}
+          onKeyPress={(e) => {
             if (e.key === "Enter") {
-              changeTitle(cardTitle);
+              changeCardTitle(cardTitle, id);
               setIsEditing(false);
             }
           }}
           // drag and drop props
           draggable
-          onDragStart={e => {
+          onDragStart={(e) => {
             e.preventDefault();
           }}
         />
@@ -100,10 +98,10 @@ const Card = ({
             setIsEditing(true);
           }}
           // drag and drop props
-          onDragStart={e => handleDragStart(e, index, boardId)}
-          onDragEnter={e => handleDragEnter(e, index, boardId)}
+          onDragStart={(e) => handleDragStart(e, index, boardId)}
+          onDragEnter={(e) => handleDragEnter(e, index, boardId)}
           onDragEnd={handleDragEnd}
-          onDragOver={e => e.preventDefault()}
+          onDragOver={(e) => e.preventDefault()}
           draggable
         >
           {cardTitle}

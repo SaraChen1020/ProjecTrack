@@ -1,23 +1,19 @@
 import { projectFirestore } from "../utils/firebase";
-import {
-  collection,
-  getDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
-import { useState, useReducer, useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-export const useDocument = (uid, docId) => {
+export const useDocument = (docId) => {
   const [document, setDocument] = useState("");
   const [error, setError] = useState(null);
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    const ref = doc(projectFirestore, uid, docId);
+    const ref = doc(projectFirestore, user.uid, docId);
     //使用onSnapshot快照取得實時更新的資料
     const unSub = onSnapshot(
       ref,
-      doc => {
+      (doc) => {
         setDocument("");
         if (doc.empty) {
           console.log("No document");
@@ -28,7 +24,7 @@ export const useDocument = (uid, docId) => {
           setError(null);
         }
       },
-      error => {
+      (error) => {
         console.log(error);
         setError("could not fetch the data");
       }

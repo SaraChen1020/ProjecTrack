@@ -1,11 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { RxDotFilled } from "react-icons/rx";
 import { TiPencil } from "react-icons/ti";
 import { BsCheck } from "react-icons/bs";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { projectFirestore } from "../../../utils/firebase";
-import { v4 } from "uuid";
+import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./Board.css";
@@ -26,26 +23,19 @@ const Board = ({
   const [isEditingName, setIsEditingName] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { user } = useAuthContext();
+  const { changeBoardTitle, addNewCard } = useUpdateData();
   const [boardTitle, setBoardTitle] = useState(title);
 
-  async function changeTitle(newBoardTitle) {
-    const ref = doc(projectFirestore, user.uid, document.id);
-    await updateDoc(ref, { [`boards.byId.${boardId}.name`]: newBoardTitle });
-  }
+  useEffect(() => {
+    setBoardTitle(title);
+  }, [title]);
 
-  async function addNewCard(newCardValue) {
+  async function handleAddNewCard() {
     //清除input內容
     setInputValue("");
     //離開input模式
     setIsAddingCard(false);
-
-    const newCardId = v4();
-    const ref = doc(projectFirestore, user.uid, document.id);
-    await updateDoc(ref, {
-      [`boards.byId.${boardId}.cardIds`]: arrayUnion(newCardId),
-      [`cards.byId.${newCardId}`]: newCardValue.trim(),
-    });
+    addNewCard(inputValue, boardId);
   }
 
   const handleDragEnter = (e, boardId) => {
@@ -57,8 +47,8 @@ const Board = ({
       <span
         className="status"
         draggable
-        onDragEnter={e => handleDragEnter(e, boardId)}
-        onDragOver={e => e.preventDefault()}
+        onDragEnter={(e) => handleDragEnter(e, boardId)}
+        onDragOver={(e) => e.preventDefault()}
       >
         <div className="status-title">
           <RxDotFilled className="status-icon" />
@@ -67,10 +57,10 @@ const Board = ({
               className="edit-board-title-input"
               autoFocus
               value={boardTitle}
-              onChange={e => setBoardTitle(e.target.value)}
-              onKeyPress={e => {
+              onChange={(e) => setBoardTitle(e.target.value)}
+              onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  changeTitle(boardTitle);
+                  changeBoardTitle(boardTitle, boardId);
                   setIsEditingName(false);
                 }
               }}
@@ -89,7 +79,7 @@ const Board = ({
           <BsCheck
             className="check-icon"
             onClick={() => {
-              changeTitle(boardTitle);
+              changeBoardTitle(boardTitle, boardId);
               setIsEditingName(false);
             }}
           />
@@ -122,13 +112,13 @@ const Board = ({
           className="addCard-input"
           autoFocus
           value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
-          onKeyPress={e => {
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={(e) => {
             if (e.key === "Enter") {
-              addNewCard(inputValue);
+              handleAddNewCard();
             }
           }}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === "Escape") {
               setInputValue("");
               setIsAddingCard(false);

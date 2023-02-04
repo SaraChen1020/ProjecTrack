@@ -10,6 +10,7 @@ import Home from "./pages/home/Home";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
+import Project from "./pages/projectBoard/Project";
 import ProjectBoard from "./pages/projectBoard/ProjectBoard";
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/signup"
-              element={!user ? <Signup /> : <Navigate to="/" />}
+              element={!user ? <Signup /> : <Navigate to="/project" />}
             />
             <Route
               path="/login"
@@ -32,8 +33,9 @@ function App() {
             />
             <Route
               path="/project"
-              element={user ? <ProjectBoard /> : <Navigate to="/login" />}
+              element={user ? <Project /> : <Navigate to="/login" />}
             />
+            <Route path="/project/:id" element={<ProjectBoard />} />
           </Routes>
         </BrowserRouter>
       )}

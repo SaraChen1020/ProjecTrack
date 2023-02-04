@@ -21,13 +21,24 @@ export const useUpdateData = () => {
     const newCardId = v4();
     await updateDoc(ref, {
       [`boards.byId.${boardId}.cardIds`]: arrayUnion(newCardId),
-      [`cards.byId.${newCardId}`]: newCardValue.trim(),
+      [`cards.byId.${newCardId}.cardTitle`]: newCardValue.trim(),
+      [`cards.byId.${newCardId}.dueDate`]: new Date().toString(),
     });
   };
 
   const changeCardTitle = async (newCardTitle, cardId) => {
-    await updateDoc(ref, { [`cards.byId.${cardId}`]: newCardTitle });
+    await updateDoc(ref, { [`cards.byId.${cardId}.cardTitle`]: newCardTitle });
   };
 
-  return { changeProjectTitle, changeBoardTitle, addNewCard, changeCardTitle };
+  const changeCardDueDate = async (newCardDueDate, cardId) => {
+    await updateDoc(ref, { [`cards.byId.${cardId}.dueDate`]: newCardDueDate });
+  };
+
+  return {
+    changeProjectTitle,
+    changeBoardTitle,
+    addNewCard,
+    changeCardTitle,
+    changeCardDueDate,
+  };
 };

@@ -4,8 +4,12 @@ import { useUpdateData } from "../../../hooks/useUpdateData";
 import { doc, updateDoc } from "firebase/firestore";
 import { projectFirestore } from "../../../utils/firebase";
 
-// styles
+// styles & components
 import "./Card.css";
+import { TiPencil, TiClipboard } from "react-icons/ti";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import CardInformation from "./CardInformation";
 
 const Card = ({
   id,
@@ -20,9 +24,17 @@ const Card = ({
 }) => {
   const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
-  const [cardTitle, setCardTitle] = useState(value);
-  const { changeCardTitle } = useUpdateData();
+  const [isHover, setIsHover] = useState(false);
+  const [cardTitle, setCardTitle] = useState(value.cardTitle);
+  const [dueDate, setDueDate] = useState(new Date(value.dueDate));
+  const [showInformation, setShowInformation] = useState(false);
+  const { changeCardTitle, changeCardDueDate } = useUpdateData();
   const ref = doc(projectFirestore, user.uid, document.id);
+
+  useEffect(() => {
+    setCardTitle(value.cardTitle);
+    setDueDate(new Date(value.dueDate));
+  }, [value]);
 
   const handleDragStart = (e, index, boardId) => {
     draggingItem.current = index;
@@ -73,41 +85,87 @@ const Card = ({
     }
   };
   return (
-    <ul className="card-area">
-      {isEditing ? (
-        <input
-          autoFocus
-          value={cardTitle}
-          onChange={(e) => setCardTitle(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              changeCardTitle(cardTitle, id);
-              setIsEditing(false);
-            }
-          }}
-          // drag and drop props
-          draggable
-          onDragStart={(e) => {
-            e.preventDefault();
-          }}
-        />
-      ) : (
+    <>
+      <ul className="card-area">
         <li
           className={`card card-${index}`}
-          onClick={() => {
-            setIsEditing(true);
-          }}
           // drag and drop props
           onDragStart={(e) => handleDragStart(e, index, boardId)}
           onDragEnter={(e) => handleDragEnter(e, index, boardId)}
           onDragEnd={handleDragEnd}
           onDragOver={(e) => e.preventDefault()}
           draggable
+          onMouseEnter={() => {
+            setIsHover(true);
+          }}
+          onMouseLeave={() => {
+            setIsHover(false);
+          }}
         >
-          {cardTitle}
+          {/* 滑入顯示編輯鉛筆 */}
+          {isHover && (
+            <div className="edit-block">
+              <div
+                className="edit-title"
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <TiPencil />
+              </div>
+              <div
+                className="show-board"
+                onClick={() => {
+                  setShowInformation(true);
+                  setIsEditing(false);
+                }}
+              >
+                <TiClipboard />
+              </div>
+            </div>
+          )}
+          {/* 編輯標題區 */}
+          {isEditing ? (
+            <input
+              autoFocus
+              value={cardTitle}
+              onChange={(e) => setCardTitle(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  changeCardTitle(cardTitle, id);
+                  setIsEditing(false);
+                }
+              }}
+            />
+          ) : (
+            <div>{cardTitle}</div>
+          )}
+
+          {/* 編輯日期區 */}
+          <div className="dueDate">
+            <DatePicker
+              selected={dueDate}
+              onChange={(date) => {
+                setDueDate(date);
+                changeCardDueDate(date.toString(), id);
+              }}
+              dateFormat="MMM dd"
+              className="datepicker"
+            />
+          </div>
         </li>
+      </ul>
+      {showInformation && (
+        <CardInformation
+          id={id}
+          index={index}
+          boardId={boardId}
+          value={value}
+          document={document}
+          setShowInformation={setShowInformation}
+        />
       )}
-    </ul>
+    </>
   );
 };
 

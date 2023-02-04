@@ -1,17 +1,25 @@
 .card-area {
-  margin: 10px 0;
+  margin-top: 10px;
 }
 .card-area .card {
   display: flex;
-  align-items: center;
-  height: 40px;
+  /* align-items: center; */
+  /* height: 40px; */
   border-radius: 4px;
   background: white;
   padding: 6px;
+  cursor: pointer;
+  position: relative;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-area .card:hover {
+  background-color: rgb(249, 249, 249);
 }
 
 .card-area input {
-  height: 40px;
+  /* height: 40px; */
   outline: none;
   border: 0;
   width: 100%;
@@ -19,5 +27,74 @@
   font-weight: 300;
   font-family: Noto Sans TC;
   border-radius: 4px;
-  padding: 6px;
+  /* padding: 6px; */
+}
+
+.card-area .edit-block {
+  position: absolute;
+  display: flex;
+  right: 8px;
+  top: 8px;
+  box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px, rgb(15 15 15 / 10%) 0px 2px;
+  border-radius: 3px;
+}
+
+.card-area .edit-title,
+.card-area .show-board {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+
+.card-area .edit-title {
+  border-right: 1px solid rgb(15 15 15 / 10%);
+}
+
+.card-area .edit-title:hover,
+.card-area .show-board:hover {
+  background-color: rgb(237, 237, 237);
+}
+
+.card-area .edit-title:hover::before,
+.card-area .show-board:hover::before {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.54);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 3px;
+  white-space: nowrap;
+}
+.card-area .edit-title:hover::before {
+  content: "edit title";
+}
+
+.card-area .show-board:hover::before {
+  content: "show detail";
+}
+
+.card-area .dueDate {
+  cursor: pointer;
+  display: inline-block;
+  max-width: 50px;
+  background-color: transparent;
+}
+
+.card-area .datepicker {
+  cursor: pointer;
+  background: rgb(255, 255, 255, 0);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card-area .datepicker:hover {
+  background-color: rgb(237, 237, 237);
 }

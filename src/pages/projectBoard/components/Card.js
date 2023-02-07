@@ -29,7 +29,7 @@ const Card = ({
   const [dueDate, setDueDate] = useState(new Date(value.dueDate));
   const [showInformation, setShowInformation] = useState(false);
   const { changeCardTitle, changeCardDueDate } = useUpdateData();
-  const ref = doc(projectFirestore, user.uid, document.id);
+  const ref = doc(projectFirestore, "project", document.id);
 
   useEffect(() => {
     setCardTitle(value.cardTitle);

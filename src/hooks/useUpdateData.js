@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 export const useUpdateData = () => {
   const { user } = useAuthContext();
   const { id } = useParams();
-  const ref = doc(projectFirestore, user.uid, id);
+  const ref = doc(projectFirestore, "project", id);
 
   const changeProjectTitle = async (newTitle) => {
     await updateDoc(ref, { title: newTitle });

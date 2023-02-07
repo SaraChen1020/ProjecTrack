@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Project() {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection(user.uid);
+  const { documents, error } = useCollection("project", user.uid);
   const navigate = useNavigate();
 
   useEffect(() => {

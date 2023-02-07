@@ -10,7 +10,7 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 export default function Sidebar() {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection(user.uid);
+  const { documents, error } = useCollection("project", user.uid);
   const { addProject } = useAddProject();
   const { id } = useParams();
   const paramsId = id;

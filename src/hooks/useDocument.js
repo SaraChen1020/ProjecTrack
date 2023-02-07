@@ -9,7 +9,7 @@ export const useDocument = (docId) => {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    const ref = doc(projectFirestore, user.uid, docId);
+    const ref = doc(projectFirestore, "project", docId);
     //使用onSnapshot快照取得實時更新的資料
     const unSub = onSnapshot(
       ref,

@@ -13,6 +13,8 @@ export const useAddProject = () => {
     const docData = {
       title: "專案標題",
       createdAt: Timestamp.now(),
+      owner: user.uid,
+      coworkers: [],
       boards: {
         ids: ["zero", "one", "two"],
         byId: {
@@ -58,7 +60,7 @@ export const useAddProject = () => {
     };
 
     try {
-      const newCollectionRef = doc(collection(projectFirestore, uid));
+      const newCollectionRef = doc(collection(projectFirestore, "project"));
 
       await setDoc(newCollectionRef, docData);
 

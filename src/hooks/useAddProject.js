@@ -3,43 +3,59 @@ import { projectFirestore } from "../utils/firebase";
 import { doc, setDoc, collection, Timestamp } from "firebase/firestore";
 
 export const useAddProject = () => {
-  const docData = {
-    title: "專案標題",
-    createdAt: Timestamp.now(),
-    boards: {
-      ids: ["zero", "one", "two"],
-      byId: {
-        zero: {
-          name: "待處理",
-          cardIds: ["card1", "card2"],
-        },
-        one: {
-          name: "進行中",
-          cardIds: ["card3", "card4"],
-        },
-        two: {
-          name: "已完成",
-          cardIds: ["card5", "card6"],
-        },
-      },
-    },
-    cards: {
-      byId: {
-        card1: "待處理1",
-        card2: "待處理2",
-        card3: "進行中1",
-        card4: "進行中2",
-        card5: "已完成1",
-        card6: "已完成2",
-      },
-    },
-  };
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const addProject = async uid => {
+  const addProject = async (user) => {
     setIsLoading(true);
     setError(null);
+
+    const docData = {
+      title: "專案標題",
+      createdAt: Timestamp.now(),
+      boards: {
+        ids: ["zero", "one", "two"],
+        byId: {
+          zero: {
+            name: "待處理",
+            cardIds: ["card1"],
+          },
+          one: {
+            name: "進行中",
+            cardIds: ["card2"],
+          },
+          two: {
+            name: "已完成",
+            cardIds: ["card3"],
+          },
+        },
+      },
+      cards: {
+        byId: {
+          card1: {
+            cardTitle: "待處理1",
+            dueDate: new Date().toString(),
+            createdBy: user.displayName,
+            createdTime: Timestamp.now(),
+            images: [],
+          },
+          card2: {
+            cardTitle: "進行中1",
+            dueDate: new Date().toString(),
+            createdBy: user.displayName,
+            createdTime: Timestamp.now(),
+            images: [],
+          },
+          card3: {
+            cardTitle: "已完成1",
+            dueDate: new Date().toString(),
+            createdBy: user.displayName,
+            createdTime: Timestamp.now(),
+            images: [],
+          },
+        },
+      },
+    };
 
     try {
       const newCollectionRef = doc(collection(projectFirestore, uid));

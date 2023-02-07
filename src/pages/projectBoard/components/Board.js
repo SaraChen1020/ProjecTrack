@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { RxDotFilled } from "react-icons/rx";
-import { TiPencil } from "react-icons/ti";
-import { BsCheck } from "react-icons/bs";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./Board.css";
 import Card from "./Card";
+import { RxDotFilled } from "react-icons/rx";
+import { TiPencil } from "react-icons/ti";
+import { BsCheck } from "react-icons/bs";
 
 const Board = ({
   index,

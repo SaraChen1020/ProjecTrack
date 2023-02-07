@@ -163,6 +163,8 @@ const Card = ({
           value={value}
           document={document}
           setShowInformation={setShowInformation}
+          dueDate={dueDate}
+          setDueDate={setDueDate}
         />
       )}
     </>

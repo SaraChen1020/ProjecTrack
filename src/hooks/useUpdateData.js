@@ -1,7 +1,7 @@
 import { useAuthContext } from "./useAuthContext";
 import { useParams } from "react-router-dom";
 import { projectFirestore } from "../utils/firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { v4 } from "uuid";
 
 export const useUpdateData = () => {
@@ -23,6 +23,9 @@ export const useUpdateData = () => {
       [`boards.byId.${boardId}.cardIds`]: arrayUnion(newCardId),
       [`cards.byId.${newCardId}.cardTitle`]: newCardValue.trim(),
       [`cards.byId.${newCardId}.dueDate`]: new Date().toString(),
+      [`cards.byId.${newCardId}.createdBy`]: user.displayName,
+      [`cards.byId.${newCardId}.createdTime`]: Timestamp.now(),
+      [`cards.byId.${newCardId}.images`]: [],
     });
   };
 

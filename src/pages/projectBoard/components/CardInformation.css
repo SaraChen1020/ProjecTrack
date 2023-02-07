@@ -1,0 +1,70 @@
+.card-backdrop {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.card-info {
+  width: 100%;
+  height: 100%;
+  /* margin: 100px auto; */
+  background: #eee;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.card-info .project-detail {
+  margin: 5px 0;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.card-info .project-row {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.card-info .project-row .row-title {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: rgba(55, 53, 47, 0.65);
+  margin-right: 5px;
+}
+
+.card-info .project-row .row-content {
+  width: 100%;
+}
+
+.card-info .project-column-icon {
+  font-size: 20px;
+}
+
+.card-info .project-name {
+  margin-left: 8px;
+}
+
+.card-info .datepicker {
+  outline: none;
+  cursor: pointer;
+  background: rgb(255, 255, 255, 0);
+  border: 0;
+  font-size: 16px;
+  width: fit-content;
+  font-family: Noto Sans TC;
+  border-radius: 4px;
+  width: 180px;
+}
+
+.card-info .datepicker:hover {
+  background-color: rgb(184, 184, 184);
+}

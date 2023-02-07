@@ -36,7 +36,7 @@ export const useSignup = () => {
       dispatch({ type: "LOGIN", payload: response.user });
 
       // 新增預設專案
-      await addProject(response.user.uid);
+      await addProject(response.user);
 
       setError(null);
       setIsLoading(false);

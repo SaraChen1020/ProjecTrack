@@ -5,26 +5,29 @@ import {
   doc,
   getDocs,
   onSnapshot,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import { useState, useReducer, useEffect } from "react";
 
-export const useCollection = uid => {
+export const useCollection = (uid) => {
   const [documents, setDocuments] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
     // collection ref ( user's own collection)
-    let ref = collection(projectFirestore, uid);
+    const ref = collection(projectFirestore, uid);
+    const q = query(ref, orderBy("createdAt", "asc"));
 
     //使用onSnapshot快照取得實時更新的資料
     const unSub = onSnapshot(
-      ref,
-      querySnapshot => {
+      q,
+      (querySnapshot) => {
         if (querySnapshot.empty) {
           console.log("No document");
         } else {
           let results = [];
-          querySnapshot.forEach(doc => {
+          querySnapshot.forEach((doc) => {
             // setDocuments({ id: doc.id, ...doc.data() });
             results.push({ id: doc.id, ...doc.data() });
           });
@@ -34,7 +37,7 @@ export const useCollection = uid => {
           setDocuments(results);
         }
       },
-      error => {
+      (error) => {
         console.log(error);
         setError("could not fetch the data");
       }

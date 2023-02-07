@@ -12,6 +12,7 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Project from "./pages/projectBoard/Project";
 import ProjectBoard from "./pages/projectBoard/ProjectBoard";
+import CardInformation from "./pages/projectBoard/components/CardInformation";
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -35,7 +36,14 @@ function App() {
               path="/project"
               element={user ? <Project /> : <Navigate to="/login" />}
             />
-            <Route path="/project/:id" element={<ProjectBoard />} />
+            <Route
+              path="/project/:id"
+              element={user ? <ProjectBoard /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/project/:id/:cardId"
+              element={user ? <CardInformation /> : <Navigate to="/login" />}
+            />
           </Routes>
         </BrowserRouter>
       )}

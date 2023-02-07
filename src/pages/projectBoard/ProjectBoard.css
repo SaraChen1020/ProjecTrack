@@ -4,11 +4,12 @@
   background-image: url("../../images/project-background.png");
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
 }
 
 .project-board .content {
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 40px auto 40px 80px;
 }
 
 .project-board .project-title-input {

@@ -11,9 +11,12 @@ export default function Project() {
 
   useEffect(() => {
     if (documents) {
-      navigate(`/project/${documents[0].id}`);
+      navigate(`/project/board`);
     }
-  }, [documents]);
+    if (error) {
+      navigate("/project/empty");
+    }
+  }, [documents, error]);
 
   return <div>{/*...*/}</div>;
 }

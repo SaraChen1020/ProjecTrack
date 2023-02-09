@@ -7,6 +7,7 @@ import { projectFirestore } from "../../../utils/firebase";
 import "./Card.css";
 import { TiClipboard } from "react-icons/ti";
 import { BiTrash } from "react-icons/bi";
+import { TbAlertTriangle } from "react-icons/tb";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardInformation from "./CardInformation";
@@ -23,6 +24,7 @@ const Card = ({
   dragOverBoard,
 }) => {
   const [isHover, setIsHover] = useState(false);
+  const [isDeleteCard, setIsDeleteCard] = useState(false);
   const [cardTitle, setCardTitle] = useState(value.cardTitle);
   const [dueDate, setDueDate] = useState(new Date(value.dueDate));
   const [showInformation, setShowInformation] = useState(false);
@@ -116,7 +118,8 @@ const Card = ({
               <div
                 className="delete-card"
                 onClick={() => {
-                  deleteCard(boardId, id);
+                  setIsDeleteCard(true);
+                  // deleteCard(boardId, id);
                 }}
               >
                 <BiTrash className="trash-icon" />
@@ -138,6 +141,35 @@ const Card = ({
           </div>
         </li>
       </ul>
+      {isDeleteCard && (
+        <div className="card-backdrop">
+          <div className="popup-area">
+            <div className="alert">
+              <TbAlertTriangle className="alert-icon" />
+            </div>
+            <div className="popup-message">確定刪除此筆內容?</div>
+            <div className="btn-area">
+              <div
+                className="btn"
+                onClick={() => {
+                  deleteCard(boardId, id);
+                }}
+              >
+                確定
+              </div>
+              <div
+                className="btn"
+                onClick={() => {
+                  setIsDeleteCard(false);
+                }}
+              >
+                取消
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showInformation && (
         <CardInformation
           id={id}

@@ -16,9 +16,12 @@ export const useCollection = (table, uid) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // collection ref ( user's own collection)
     const ref = collection(projectFirestore, table);
-    const q = query(ref, where("owner", "==", uid));
+    const q = query(
+      ref,
+      where("owner", "==", uid),
+      orderBy("createdAt", "asc")
+    );
 
     //使用onSnapshot快照取得實時更新的資料
     const unSub = onSnapshot(
@@ -26,6 +29,7 @@ export const useCollection = (table, uid) => {
       (querySnapshot) => {
         if (querySnapshot.empty) {
           console.log("No document");
+          setError("No project selected");
         } else {
           let results = [];
           querySnapshot.forEach((doc) => {

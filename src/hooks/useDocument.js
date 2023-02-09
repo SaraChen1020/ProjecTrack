@@ -14,9 +14,11 @@ export const useDocument = (docId) => {
     const unSub = onSnapshot(
       ref,
       (doc) => {
-        setDocument("");
-        if (doc.empty) {
+        if (docId == "board" || docId == "empty") {
+          setError("No Project Selected");
+        } else if (!doc.exists()) {
           console.log("No document");
+          setError("Cannot find the project");
         } else {
           setDocument({ id: doc.id, ...doc.data() });
 

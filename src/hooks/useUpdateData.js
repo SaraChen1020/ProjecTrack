@@ -1,7 +1,15 @@
 import { useAuthContext } from "./useAuthContext";
 import { useParams } from "react-router-dom";
 import { projectFirestore } from "../utils/firebase";
-import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  Timestamp,
+  arrayRemove,
+  deleteField,
+  deleteDoc,
+} from "firebase/firestore";
 import { v4 } from "uuid";
 
 export const useUpdateData = () => {
@@ -29,6 +37,13 @@ export const useUpdateData = () => {
     });
   };
 
+  const deleteCard = async (boardId, cardId) => {
+    await updateDoc(ref, {
+      [`boards.byId.${boardId}.cardIds`]: arrayRemove(cardId),
+      [`cards.byId.${cardId}`]: deleteField(),
+    });
+  };
+
   const changeCardTitle = async (newCardTitle, cardId) => {
     await updateDoc(ref, { [`cards.byId.${cardId}.cardTitle`]: newCardTitle });
   };
@@ -37,11 +52,22 @@ export const useUpdateData = () => {
     await updateDoc(ref, { [`cards.byId.${cardId}.dueDate`]: newCardDueDate });
   };
 
+  const updateCardContent = async (newCardContent, cardId) => {
+    await updateDoc(ref, { [`cards.byId.${cardId}.content`]: newCardContent });
+  };
+
+  const deleteProject = async (docId) => {
+    await deleteDoc(doc(projectFirestore, "project", docId));
+  };
+
   return {
     changeProjectTitle,
     changeBoardTitle,
     addNewCard,
+    deleteCard,
     changeCardTitle,
     changeCardDueDate,
+    updateCardContent,
+    deleteProject,
   };
 };

@@ -1,9 +1,11 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./CardInformation.css";
+import ReactMarkdown from "react-markdown";
 import DatePicker from "react-datepicker";
 import {
   BiLoader,
@@ -24,9 +26,9 @@ export default function CardInformation({
   dueDate,
   setDueDate,
 }) {
-  const navigate = useNavigate();
+  const { updateCardContent, changeCardDueDate, changeCardTitle } =
+    useUpdateData();
   const cardStatus = document.boards.byId[boardId].name;
-  const cardDueDate = new Date(value.dueDate);
   const date = new Date(value.createdTime.toDate().toString());
   const createdTime = date.toLocaleString("en-US", {
     month: "long",
@@ -35,15 +37,30 @@ export default function CardInformation({
     hour: "numeric",
     minute: "numeric",
   });
-
-  // useEffect(() => {
-  //   navigate(`/project/${document.id}/${id}`);
-  // }, []);
+  const [isEditing, setIsEditing] = useState(false);
+  const [cardTitle, setCardTitle] = useState(value.cardTitle);
+  const [markdownText, setMarkdownText] = useState(value.content);
 
   return (
     <div className="card-backdrop">
       <div className="card-info">
-        <h2>{value.cardTitle}</h2>
+        {isEditing ? (
+          <input
+            className="cardTitle-input"
+            autoFocus
+            value={cardTitle}
+            onChange={(e) => setCardTitle(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                changeCardTitle(cardTitle, id);
+                setIsEditing(false);
+              }
+            }}
+          />
+        ) : (
+          <h2 onClick={() => setIsEditing(true)}>{cardTitle}</h2>
+        )}
+
         <ul className="project-detail">
           <li className="project-row">
             <div className="row-title">
@@ -67,6 +84,10 @@ export default function CardInformation({
                 selected={dueDate}
                 dateFormat="MMMM d, yyyy"
                 className="datepicker"
+                onChange={(date) => {
+                  setDueDate(date);
+                  changeCardDueDate(date.toString(), id);
+                }}
               />
             </div>
           </li>
@@ -84,15 +105,44 @@ export default function CardInformation({
             </div>
             <div className="row-content">{createdTime}</div>
           </li>
-          <li className="project-row">
+          {/* <li className="project-row">
             <div className="row-title">
               <BiImageAdd className="project-column-icon" />
               <p className="project-name">Images</p>
             </div>
             <div className="row-content"></div>
-          </li>
+          </li> */}
         </ul>
-        <button onClick={() => setShowInformation(false)}>close</button>
+
+        <div className="project-content">
+          <div className="text">
+            <h3 className="text-title">Type here</h3>
+            <textarea
+              value={markdownText}
+              onChange={(e) => {
+                setMarkdownText(e.target.value);
+              }}
+              className="markdown-input"
+            />
+          </div>
+          <div className="text">
+            <h3 className="text-title">Preview content</h3>
+            <ReactMarkdown
+              children={markdownText}
+              className="markdown-preview"
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            setShowInformation(false);
+            updateCardContent(markdownText, id);
+            changeCardTitle(cardTitle, id);
+          }}
+        >
+          save
+        </button>
       </div>
     </div>
   );

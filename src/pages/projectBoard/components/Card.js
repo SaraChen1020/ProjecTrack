@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import React, { useState, useEffect } from "react";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 import { doc, updateDoc } from "firebase/firestore";
 import { projectFirestore } from "../../../utils/firebase";
 
 // styles & components
 import "./Card.css";
-import { TiPencil, TiClipboard } from "react-icons/ti";
+import { TiClipboard } from "react-icons/ti";
+import { BiTrash } from "react-icons/bi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardInformation from "./CardInformation";
@@ -22,13 +22,11 @@ const Card = ({
   dragOverItem,
   dragOverBoard,
 }) => {
-  const { user } = useAuthContext();
-  const [isEditing, setIsEditing] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [cardTitle, setCardTitle] = useState(value.cardTitle);
   const [dueDate, setDueDate] = useState(new Date(value.dueDate));
   const [showInformation, setShowInformation] = useState(false);
-  const { changeCardTitle, changeCardDueDate } = useUpdateData();
+  const { deleteCard, changeCardDueDate } = useUpdateData();
   const ref = doc(projectFirestore, "project", document.id);
 
   useEffect(() => {
@@ -102,43 +100,28 @@ const Card = ({
             setIsHover(false);
           }}
         >
-          {/* 滑入顯示編輯鉛筆 */}
+          <div>{cardTitle}</div>
+
+          {/* 滑入顯示編輯區 */}
           {isHover && (
             <div className="edit-block">
-              <div
-                className="edit-title"
-                onClick={() => {
-                  setIsEditing(true);
-                }}
-              >
-                <TiPencil />
-              </div>
               <div
                 className="show-board"
                 onClick={() => {
                   setShowInformation(true);
-                  setIsEditing(false);
                 }}
               >
                 <TiClipboard />
               </div>
+              <div
+                className="delete-card"
+                onClick={() => {
+                  deleteCard(boardId, id);
+                }}
+              >
+                <BiTrash className="trash-icon" />
+              </div>
             </div>
-          )}
-          {/* 編輯標題區 */}
-          {isEditing ? (
-            <input
-              autoFocus
-              value={cardTitle}
-              onChange={(e) => setCardTitle(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  changeCardTitle(cardTitle, id);
-                  setIsEditing(false);
-                }
-              }}
-            />
-          ) : (
-            <div>{cardTitle}</div>
           )}
 
           {/* 編輯日期區 */}

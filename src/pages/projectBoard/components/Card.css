@@ -3,8 +3,7 @@
 }
 .card-area .card {
   display: flex;
-  /* align-items: center; */
-  /* height: 40px; */
+
   border-radius: 4px;
   background: white;
   padding: 6px;
@@ -19,7 +18,6 @@
 }
 
 .card-area input {
-  /* height: 40px; */
   outline: none;
   border: 0;
   width: 100%;
@@ -27,7 +25,6 @@
   font-weight: 300;
   font-family: Noto Sans TC;
   border-radius: 4px;
-  /* padding: 6px; */
 }
 
 .card-area .edit-block {
@@ -39,7 +36,7 @@
   border-radius: 3px;
 }
 
-.card-area .edit-title,
+.card-area .delete-card,
 .card-area .show-board {
   position: relative;
   display: flex;
@@ -51,16 +48,19 @@
   border-radius: 3px;
 }
 
-.card-area .edit-title {
+.card-area .show-board {
   border-right: 1px solid rgb(15 15 15 / 10%);
 }
 
-.card-area .edit-title:hover,
 .card-area .show-board:hover {
-  background-color: rgb(237, 237, 237);
+  color: var(--primary-color);
 }
 
-.card-area .edit-title:hover::before,
+.card-area .delete-card:hover {
+  color: red;
+}
+
+.card-area .delete-card:hover::before,
 .card-area .show-board:hover::before {
   position: absolute;
   top: -30px;
@@ -73,12 +73,16 @@
   padding: 3px;
   white-space: nowrap;
 }
-.card-area .edit-title:hover::before {
-  content: "edit title";
+.card-area .delete-card:hover::before {
+  content: "delete this card";
 }
 
 .card-area .show-board:hover::before {
   content: "show detail";
+}
+
+.card-area .trash-icon {
+  font-size: 16px;
 }
 
 .card-area .dueDate {

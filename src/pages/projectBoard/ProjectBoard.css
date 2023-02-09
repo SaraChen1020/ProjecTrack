@@ -1,3 +1,7 @@
+.project {
+  display: flex;
+}
+
 .project-board {
   width: 100%;
   min-height: 700px;
@@ -5,6 +9,10 @@
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
+}
+
+.project-board .error-message {
+  margin: 80px auto 0 auto;
 }
 
 .project-board .content {

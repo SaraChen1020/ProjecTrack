@@ -48,9 +48,14 @@
   content: "Add new project";
 }
 
+.sidebar .link-area {
+  display: flex;
+}
+
 .sidebar a {
   text-decoration: none;
   color: rgba(25, 23, 17, 0.6);
+  width: 100%;
 }
 
 .sidebar .project-link {
@@ -60,9 +65,9 @@
   border-radius: 20px 0 0 20px;
 }
 
-.sidebar .project-link:hover {
+/* .sidebar .project-link:hover {
   background: rgb(245, 240, 240);
-}
+} */
 
 .sidebar .active {
   background: #f7f7f7;
@@ -73,4 +78,18 @@
   justify-content: center;
   align-items: center;
   margin-right: 3px;
+}
+
+.sidebar .del-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0 8px auto;
+  cursor: pointer;
+  padding-right: 12px;
+  color: rgba(25, 23, 17, 0.6);
+}
+
+.sidebar .trash-icon:hover {
+  color: red;
 }

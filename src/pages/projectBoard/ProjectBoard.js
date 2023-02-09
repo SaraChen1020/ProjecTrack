@@ -12,20 +12,19 @@ import Board from "./components/Board";
 export default function ProjectBoard() {
   const { id } = useParams();
   const { document, error } = useDocument(id);
-
   const draggingBoard = useRef();
   const dragOverBoard = useRef();
   const draggingItem = useRef();
   const dragOverItem = useRef();
 
   return (
-    <>
-      {document && (
-        <main className="project-board">
-          <Sidebar />
+    <div className="project">
+      <Sidebar />
+      <div className="project-board">
+        {!document && <div className="error-message">{error}</div>}
+        {document && (
           <div className="content">
             <ProjectTitle document={document} />
-
             <div className="board-area">
               {document.boards.ids.map((id, index) => {
                 return (
@@ -46,8 +45,8 @@ export default function ProjectBoard() {
               })}
             </div>
           </div>
-        </main>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 }

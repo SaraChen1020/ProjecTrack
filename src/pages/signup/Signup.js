@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useSignup } from "../../hooks/useSignup";
 import { BiLoaderAlt } from "react-icons/bi";
 
@@ -9,7 +10,7 @@ export default function Signup() {
   const [displayName, setDisplayName] = useState("");
   const { signup, isLoading, error } = useSignup();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     signup(email, password, displayName);
   };
@@ -23,7 +24,7 @@ export default function Signup() {
           required
           type="text"
           value={displayName}
-          onChange={e => setDisplayName(e.target.value)}
+          onChange={(e) => setDisplayName(e.target.value)}
         />
       </label>
       <label>
@@ -32,7 +33,7 @@ export default function Signup() {
           required
           type="email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <label>
@@ -41,7 +42,7 @@ export default function Signup() {
           required
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </label>
 
@@ -51,6 +52,9 @@ export default function Signup() {
           <BiLoaderAlt className="loading" />
         </button>
       )}
+      <div className="message">
+        已有帳號? <Link to="/login">點此登入</Link>
+      </div>
     </form>
   );
 }

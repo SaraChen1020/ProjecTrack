@@ -48,6 +48,16 @@
   color: var(--heading-color);
 }
 
+.member-form .message {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.member-form a {
+  text-decoration: underline;
+  color: black;
+}
+
 .loading {
   animation: loading 3s linear infinite;
 }

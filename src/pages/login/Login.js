@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -8,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const { login, isLoading, error } = useLogin();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
   };
@@ -22,7 +23,7 @@ export default function Login() {
           required
           type="email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <label>
@@ -31,7 +32,7 @@ export default function Login() {
           required
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </label>
       {!isLoading && <button className="btn">登入</button>}
@@ -40,6 +41,9 @@ export default function Login() {
           <BiLoaderAlt className="loading" />
         </button>
       )}
+      <div className="message">
+        還沒有帳號? <Link to="/signup">點此註冊</Link>
+      </div>
     </form>
   );
 }

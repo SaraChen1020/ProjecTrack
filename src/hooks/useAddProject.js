@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useAuthContext } from "./useAuthContext";
 import { projectFirestore } from "../utils/firebase";
 import { doc, setDoc, collection, Timestamp } from "firebase/firestore";
 
 export const useAddProject = () => {
+  const { user } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const addProject = async (user) => {
+  const addProject = async () => {
     setIsLoading(true);
     setError(null);
 
@@ -39,21 +41,30 @@ export const useAddProject = () => {
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),
-            images: [],
+            lastEditedTime: Timestamp.now(),
+            lastEditedUser: user.displayName,
+            content: "",
+            assignTo: [],
           },
           card2: {
             cardTitle: "進行中1",
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),
-            images: [],
+            lastEditedTime: Timestamp.now(),
+            lastEditedUser: user.displayName,
+            content: "",
+            assignTo: [],
           },
           card3: {
             cardTitle: "已完成1",
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),
-            images: [],
+            lastEditedTime: Timestamp.now(),
+            lastEditedUser: user.displayName,
+            content: "",
+            assignTo: [],
           },
         },
       },

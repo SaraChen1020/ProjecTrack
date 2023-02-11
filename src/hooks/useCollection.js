@@ -1,4 +1,5 @@
 import { projectFirestore } from "../utils/firebase";
+import { useAuthContext } from "./useAuthContext";
 import {
   collection,
   getDoc,
@@ -11,15 +12,16 @@ import {
 } from "firebase/firestore";
 import { useState, useReducer, useEffect } from "react";
 
-export const useCollection = (table, uid) => {
+export const useCollection = (table) => {
   const [documents, setDocuments] = useState("");
   const [error, setError] = useState(null);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const ref = collection(projectFirestore, table);
     const q = query(
       ref,
-      where("owner", "==", uid),
+      where("owner", "==", user.uid),
       orderBy("createdAt", "asc")
     );
 

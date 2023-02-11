@@ -14,7 +14,7 @@ import { BiTrash } from "react-icons/bi";
 export default function Sidebar() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  const { documents, error } = useCollection("project", user.uid);
+  const { documents, error } = useCollection("project");
   const { addProject } = useAddProject();
   const { deleteProject } = useUpdateData();
   const { id } = useParams();
@@ -25,7 +25,7 @@ export default function Sidebar() {
       <div className="sidebar">
         <div className="main-title">
           My Project
-          <div className="add-project" onClick={() => addProject(user)}>
+          <div className="add-project" onClick={() => addProject()}>
             ＋
           </div>
         </div>

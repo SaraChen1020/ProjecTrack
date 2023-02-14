@@ -14,8 +14,8 @@ import { v4 } from "uuid";
 
 export const useUpdateData = () => {
   const { user } = useAuthContext();
-  const { id } = useParams();
-  const ref = doc(projectFirestore, "project", id);
+  const { docId } = useParams();
+  const ref = doc(projectFirestore, "project", docId);
 
   const changeProjectTitle = async (newTitle) => {
     await updateDoc(ref, { title: newTitle });
@@ -33,7 +33,9 @@ export const useUpdateData = () => {
       [`cards.byId.${newCardId}.dueDate`]: new Date().toString(),
       [`cards.byId.${newCardId}.createdBy`]: user.displayName,
       [`cards.byId.${newCardId}.createdTime`]: Timestamp.now(),
-      [`cards.byId.${newCardId}.images`]: [],
+      [`cards.byId.${newCardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${newCardId}.lastEditedUser`]: user.displayName,
+      [`cards.byId.${newCardId}.assignTo`]: [],
     });
   };
 
@@ -45,15 +47,44 @@ export const useUpdateData = () => {
   };
 
   const changeCardTitle = async (newCardTitle, cardId) => {
-    await updateDoc(ref, { [`cards.byId.${cardId}.cardTitle`]: newCardTitle });
+    await updateDoc(ref, {
+      [`cards.byId.${cardId}.cardTitle`]: newCardTitle,
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
+    });
   };
 
   const changeCardDueDate = async (newCardDueDate, cardId) => {
-    await updateDoc(ref, { [`cards.byId.${cardId}.dueDate`]: newCardDueDate });
+    await updateDoc(ref, {
+      [`cards.byId.${cardId}.dueDate`]: newCardDueDate,
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
+    });
   };
 
-  const updateCardContent = async (newCardContent, cardId) => {
-    await updateDoc(ref, { [`cards.byId.${cardId}.content`]: newCardContent });
+  const updateCardInfo = async (cardId, newCardTitle, newCardContent) => {
+    await updateDoc(ref, {
+      [`cards.byId.${cardId}.cardTitle`]: newCardTitle,
+      [`cards.byId.${cardId}.content`]: newCardContent,
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
+    });
+  };
+
+  const addCardAssigner = async (cardId, assignInfo) => {
+    await updateDoc(ref, {
+      [`cards.byId.${cardId}.assignTo`]: arrayUnion(assignInfo),
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
+    });
+  };
+
+  const deleteCardAssigner = async (cardId, assignInfo) => {
+    await updateDoc(ref, {
+      [`cards.byId.${cardId}.assignTo`]: arrayRemove(assignInfo),
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
+    });
   };
 
   const deleteProject = async (docId) => {
@@ -67,7 +98,9 @@ export const useUpdateData = () => {
     deleteCard,
     changeCardTitle,
     changeCardDueDate,
-    updateCardContent,
+    updateCardInfo,
+    addCardAssigner,
+    deleteCardAssigner,
     deleteProject,
   };
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUpdateData } from "../../../hooks/useUpdateData";
-import { doc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { doc, updateDoc, Timestamp } from "firebase/firestore";
 import { projectFirestore } from "../../../utils/firebase";
 
 // styles & components
@@ -23,12 +24,14 @@ const Card = ({
   dragOverItem,
   dragOverBoard,
 }) => {
+  const cardAssigner = document.cards.byId[id].assignTo;
   const [isHover, setIsHover] = useState(false);
   const [isDeleteCard, setIsDeleteCard] = useState(false);
   const [cardTitle, setCardTitle] = useState(value.cardTitle);
   const [dueDate, setDueDate] = useState(new Date(value.dueDate));
   const [showInformation, setShowInformation] = useState(false);
   const { deleteCard, changeCardDueDate } = useUpdateData();
+  const { user } = useAuthContext();
   const ref = doc(projectFirestore, "project", document.id);
 
   useEffect(() => {
@@ -83,6 +86,12 @@ const Card = ({
         [`boards.byId.${dragOverBoard.current}.cardIds`]: overList,
       });
     }
+
+    //更新最後編輯時間&編輯者
+    await updateDoc(ref, {
+      [`cards.byId.${id}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${id}.lastEditedUser`]: user.displayName,
+    });
   };
   return (
     <>
@@ -103,6 +112,18 @@ const Card = ({
           }}
         >
           <div>{cardTitle}</div>
+          <div className="assign-area">
+            {cardAssigner.map((doc) => {
+              const { displayName, uid } = doc;
+              return (
+                <div key={uid} className="name-content">
+                  <div className="name-icon">
+                    {displayName[0].toUpperCase()}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
           {/* 滑入顯示編輯區 */}
           {isHover && (

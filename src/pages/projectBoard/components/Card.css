@@ -3,7 +3,6 @@
 }
 .card-area .card {
   display: flex;
-
   border-radius: 4px;
   background: white;
   padding: 6px;
@@ -25,6 +24,30 @@
   font-weight: 300;
   font-family: Noto Sans TC;
   border-radius: 4px;
+}
+
+.card-area .assign-area {
+  display: flex;
+}
+
+.card-area .name-content {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.card-area .name-icon {
+  box-sizing: content-box;
+  border: 1px solid black;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 16px;
+  background: rgb(255, 255, 255, 0);
+  color: rgb(55, 53, 47);
+  margin-right: 2px;
 }
 
 .card-area .edit-block {

@@ -10,8 +10,7 @@ import ProjectTitle from "./components/ProjectTitle";
 import Board from "./components/Board";
 
 export default function ProjectBoard() {
-  const { id } = useParams();
-  const { document, error } = useDocument(id);
+  const { document, error } = useDocument();
   const draggingBoard = useRef();
   const dragOverBoard = useRef();
   const draggingItem = useRef();

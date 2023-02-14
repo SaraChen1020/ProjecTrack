@@ -1,12 +1,14 @@
 import { projectFirestore } from "../utils/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useParams } from "react-router-dom";
 
-export const useDocument = (docId) => {
+export const useDocument = () => {
+  const { docId } = useParams();
   const [document, setDocument] = useState("");
   const [error, setError] = useState(null);
-  const { user } = useAuthContext();
+  const [coworker, setCoworker] = useState("");
+  const [empty, setEmpty] = useState(false);
 
   useEffect(() => {
     const ref = doc(projectFirestore, "project", docId);
@@ -21,10 +23,16 @@ export const useDocument = (docId) => {
           setError("Cannot find the project");
         } else {
           setDocument({ id: doc.id, ...doc.data() });
-
           // update state
           setError(null);
         }
+
+        // if (doc.exists() && doc.data().coworkers.length == 0) {
+        //   setEmpty(true);
+        // } else {
+        //   setEmpty(false);
+        //   setCoworker(doc.data().coworkers);
+        // }
       },
       (error) => {
         console.log(error);
@@ -36,5 +44,5 @@ export const useDocument = (docId) => {
     return () => unSub();
   }, [docId]);
 
-  return { document, error };
+  return { document, error, coworker, empty };
 };

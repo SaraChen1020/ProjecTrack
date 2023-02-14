@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCollection } from "../../../hooks/useCollection";
 import { useAddProject } from "../../../hooks/useAddProject";
 import { useUpdateData } from "../../../hooks/useUpdateData";
@@ -10,19 +9,33 @@ import { useUpdateData } from "../../../hooks/useUpdateData";
 import "./Sidebar.css";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { BiTrash } from "react-icons/bi";
+import { AiOutlineDoubleLeft } from "react-icons/ai";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const [isHover, setIsHover] = useState(false);
   const { documents, error } = useCollection("project");
   const { addProject } = useAddProject();
   const { deleteProject } = useUpdateData();
-  const { id } = useParams();
-  const paramsId = id;
+  const { docId } = useParams();
+
+  const handleHover = () => {
+    setIsHover(!isHover);
+  };
 
   return (
     <>
-      <div className="sidebar">
+      <div
+        className="sidebar"
+        onMouseEnter={handleHover}
+        onMouseLeave={handleHover}
+      >
+        <div className="sidebar-close">
+          <div className={`left-icon-div ${isHover ? "" : "none"}`}>
+            <AiOutlineDoubleLeft className="left-icon" />
+          </div>
+        </div>
+
         <div className="main-title">
           My Project
           <div className="add-project" onClick={() => addProject()}>
@@ -37,9 +50,7 @@ export default function Sidebar() {
                 <div className="link-area" key={id}>
                   <Link to={`/project/${id}`}>
                     <div
-                      className={`project-link ${
-                        id == paramsId ? "active" : ""
-                      }`}
+                      className={`project-link ${id == docId ? "active" : ""}`}
                     >
                       <div className="doc-icon">
                         <HiOutlineClipboardDocumentList />
@@ -47,7 +58,7 @@ export default function Sidebar() {
                       <div>{title}</div>
                     </div>
                   </Link>
-                  <div className={`del-icon ${id == paramsId ? "active" : ""}`}>
+                  <div className={`del-icon ${id == docId ? "active" : ""}`}>
                     <BiTrash
                       className="trash-icon"
                       onClick={() => {

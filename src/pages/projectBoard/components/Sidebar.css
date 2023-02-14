@@ -3,14 +3,53 @@
   min-width: 200px;
   background: rgb(216, 232, 235);
   min-height: 100vh;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-left: 25px;
   font-size: 16px;
+  color: rgba(25, 23, 17, 0.6);
+}
+
+.none {
+  visibility: hidden;
+}
+
+.sidebar .sidebar-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  margin-bottom: 12px;
+}
+
+.sidebar .left-icon-div {
+  position: relative;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.sidebar .left-icon-div:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.sidebar .left-icon-div:hover::before {
+  position: absolute;
+  top: -30px;
+  left: 0px;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.54);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 3px;
+  white-space: nowrap;
+  font-weight: 500;
+  content: "Close sidebar";
 }
 
 .sidebar .main-title {
   font-size: 14px;
-  color: rgba(25, 23, 17, 0.6);
   margin-bottom: 10px;
   padding-left: 8px;
   display: flex;
@@ -65,10 +104,6 @@
   border-radius: 20px 0 0 20px;
 }
 
-/* .sidebar .project-link:hover {
-  background: rgb(245, 240, 240);
-} */
-
 .sidebar .active {
   background: #f7f7f7;
 }
@@ -87,7 +122,6 @@
   margin: 8px 0 8px auto;
   cursor: pointer;
   padding-right: 12px;
-  color: rgba(25, 23, 17, 0.6);
 }
 
 .sidebar .trash-icon:hover {

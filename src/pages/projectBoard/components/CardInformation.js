@@ -5,6 +5,7 @@ import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./CardInformation.css";
+import SelectUser from "./SelectUser";
 import ReactMarkdown from "react-markdown";
 import DatePicker from "react-datepicker";
 import {
@@ -26,11 +27,19 @@ export default function CardInformation({
   dueDate,
   setDueDate,
 }) {
-  const { updateCardContent, changeCardDueDate, changeCardTitle } =
+  const { updateCardInfo, changeCardDueDate, changeCardTitle } =
     useUpdateData();
   const cardStatus = document.boards.byId[boardId].name;
-  const date = new Date(value.createdTime.toDate().toString());
-  const createdTime = date.toLocaleString("en-US", {
+  const createdDate = new Date(value.createdTime.toDate().toString());
+  const createdTime = createdDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const editDate = new Date(value.lastEditedTime.toDate().toString());
+  const lastEditedTime = editDate.toLocaleString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -94,9 +103,23 @@ export default function CardInformation({
           <li className="project-row">
             <div className="row-title">
               <BiUserCircle className="project-column-icon" />
+              <p className="project-name">Assign To</p>
+            </div>
+            <div className="row-content">
+              <SelectUser cardId={id} document={document} />
+            </div>
+          </li>
+          <li className="project-row">
+            <div className="row-title">
+              <BiUserCircle className="project-column-icon" />
               <p className="project-name">Created By</p>
             </div>
-            <div className="row-content">{value.createdBy}</div>
+            <div className="row-content">
+              <div className="name-icon">
+                {value.createdBy[0].toUpperCase()}
+              </div>
+              <div>{value.createdBy}</div>
+            </div>
           </li>
           <li className="project-row">
             <div className="row-title">
@@ -105,13 +128,25 @@ export default function CardInformation({
             </div>
             <div className="row-content">{createdTime}</div>
           </li>
-          {/* <li className="project-row">
+          <li className="project-row">
             <div className="row-title">
-              <BiImageAdd className="project-column-icon" />
-              <p className="project-name">Images</p>
+              <BiUserCircle className="project-column-icon" />
+              <p className="project-name">Last Edited By</p>
             </div>
-            <div className="row-content"></div>
-          </li> */}
+            <div className="row-content">
+              <div className="name-icon">
+                {value.lastEditedUser[0].toUpperCase()}
+              </div>
+              <div>{value.lastEditedUser}</div>
+            </div>
+          </li>
+          <li className="project-row">
+            <div className="row-title">
+              <BiTime className="project-column-icon" />
+              <p className="project-name">Last Edited Time</p>
+            </div>
+            <div className="row-content">{lastEditedTime}</div>
+          </li>
         </ul>
 
         <div className="project-content">
@@ -134,15 +169,15 @@ export default function CardInformation({
           </div>
         </div>
 
-        <button
+        <div
+          className="save-btn"
           onClick={() => {
             setShowInformation(false);
-            updateCardContent(markdownText, id);
-            changeCardTitle(cardTitle, id);
+            updateCardInfo(id, cardTitle, markdownText);
           }}
         >
-          save
-        </button>
+          儲存
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,61 @@
+.select-user {
+  position: relative;
+  width: 80%;
+}
+
+.select-user .select-btn {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+}
+
+.select-user .name-content {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.select-user .selecting-area {
+  display: flex;
+}
+
+.select-user .select-btn:hover {
+  background-color: rgb(184, 184, 184);
+}
+
+.select-user .user-menu {
+  position: absolute;
+  z-index: 200;
+  background-color: white;
+  width: 100%;
+  margin-top: 3px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.select-user .user-menu .option {
+  margin: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.select-user .option:hover {
+  background-color: rgb(204, 204, 204);
+}
+
+.select-user .close-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.select-user .close-icon:hover {
+  background-color: rgb(184, 184, 184);
+}

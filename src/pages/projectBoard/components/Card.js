@@ -11,6 +11,7 @@ import { BiTrash } from "react-icons/bi";
 import { TbAlertTriangle } from "react-icons/tb";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import PopupAlert from "../../../components/PopupAlert";
 import CardInformation from "./CardInformation";
 
 const Card = ({
@@ -93,6 +94,15 @@ const Card = ({
       [`cards.byId.${id}.lastEditedUser`]: user.displayName,
     });
   };
+
+  const handleConfirm = () => {
+    deleteCard(boardId, id);
+  };
+
+  const handleCancel = () => {
+    setIsDeleteCard(false);
+  };
+
   return (
     <>
       <ul className="card-area">
@@ -113,16 +123,17 @@ const Card = ({
         >
           <div>{cardTitle}</div>
           <div className="assign-area">
-            {cardAssigner.map((doc) => {
-              const { displayName, uid } = doc;
-              return (
-                <div key={uid} className="name-content">
-                  <div className="name-icon">
-                    {displayName[0].toUpperCase()}
+            {document.coworkers &&
+              cardAssigner.map((doc) => {
+                const { displayName, uid } = doc;
+                return (
+                  <div key={uid} className="name-content">
+                    <div className="name-icon">
+                      {displayName[0].toUpperCase()}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
 
           {/* 滑入顯示編輯區 */}
@@ -164,30 +175,11 @@ const Card = ({
       </ul>
       {isDeleteCard && (
         <div className="card-backdrop">
-          <div className="popup-area">
-            <div className="alert">
-              <TbAlertTriangle className="alert-icon" />
-            </div>
-            <div className="popup-message">確定刪除此筆內容?</div>
-            <div className="btn-area">
-              <div
-                className="btn"
-                onClick={() => {
-                  deleteCard(boardId, id);
-                }}
-              >
-                確定
-              </div>
-              <div
-                className="btn"
-                onClick={() => {
-                  setIsDeleteCard(false);
-                }}
-              >
-                取消
-              </div>
-            </div>
-          </div>
+          <PopupAlert
+            message="確定刪除此筆內容?"
+            onConfirm={handleConfirm}
+            onCancel={handleCancel}
+          />
         </div>
       )}
 

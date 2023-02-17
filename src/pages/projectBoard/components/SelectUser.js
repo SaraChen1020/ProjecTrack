@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useFetchUsers } from "../../../hooks/useFetchUsers";
-import { useDocument } from "../../../hooks/useDocument";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./SelectUser.css";
 import { IoIosClose } from "react-icons/io";
 
-export default function SelectUser({ cardId, document }) {
+export default function SelectUser({ cardId, document, setUpdateCoworkers }) {
   const { users } = useFetchUsers();
   //此卡片的指派欄位
   const cardAssigner = document.cards.byId[cardId].assignTo;
@@ -44,11 +43,17 @@ export default function SelectUser({ cardId, document }) {
   const handleAddAssign = (displayName, uid) => {
     const assignInfo = { displayName, uid };
     addCardAssigner(cardId, assignInfo);
+    setUpdateCoworkers((prevData) => {
+      return [...prevData, uid];
+    });
   };
 
   const handelDeleteAssign = (displayName, uid) => {
     const assignInfo = { displayName, uid };
     deleteCardAssigner(cardId, assignInfo);
+    // setUpdateCoworkers((prevData) => {
+    //   return prevData.filter((item) => item !== uid);
+    // });
   };
 
   return (
@@ -108,7 +113,7 @@ export default function SelectUser({ cardId, document }) {
 
           {showMenu && (
             <ul className="user-menu">
-              {unAssigner.map((user, index) => {
+              {unAssigner.map((user) => {
                 const { displayName, uid } = user;
                 return (
                   <li

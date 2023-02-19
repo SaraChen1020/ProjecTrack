@@ -52,6 +52,7 @@
   padding: 3px;
   white-space: nowrap;
   font-weight: 500;
+  z-index: 350;
 }
 
 .sidebar .left-icon-div:hover::before {
@@ -100,6 +101,7 @@
   white-space: nowrap;
   font-weight: lighter;
   content: "Add new project";
+  z-index: 350;
 }
 
 .sidebar .link-area {
@@ -167,6 +169,7 @@
   white-space: nowrap;
   z-index: 50;
   content: "Delete and Assign to...";
+  z-index: 350;
 }
 
 .sidebar .function-area {
@@ -179,7 +182,7 @@
   left: 50%;
   font-size: 14px;
   white-space: nowrap;
-  z-index: 60;
+  z-index: 350;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   border-radius: 5px;

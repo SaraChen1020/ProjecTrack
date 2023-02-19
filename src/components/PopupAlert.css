@@ -5,6 +5,7 @@
   background: #eee;
   padding: 20px;
   border-radius: 4px;
+  z-index: 350;
 }
 
 .popup-area .alert {

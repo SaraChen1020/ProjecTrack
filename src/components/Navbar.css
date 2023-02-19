@@ -1,6 +1,12 @@
 .header {
   border-bottom: 1px solid rgb(214, 214, 214);
   background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 300;
+  height: 80px;
 }
 
 .navbar {
@@ -76,4 +82,8 @@
 .navbar a {
   text-decoration: none;
   color: #333;
+}
+
+.navbar-placeholder {
+  height: 80px;
 }

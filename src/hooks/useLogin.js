@@ -30,9 +30,19 @@ export const useLogin = () => {
       setIsLoading(false);
       setError(null);
       navigate("/project");
-    } catch (err) {
-      console.log(err.message);
-      setError(err.message);
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          setError("信箱格式錯誤");
+          break;
+        case "auth/user-not-found":
+          setError("信箱不存在");
+          break;
+        case "auth/wrong-password":
+          setError("密碼輸入錯誤");
+          break;
+        default:
+      }
       setIsLoading(false);
     }
   };

@@ -62,6 +62,27 @@
   animation: loading 3s linear infinite;
 }
 
+.error {
+  display: flex;
+  color: red;
+  background: pink;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-icon {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-size: 20px;
+  height: 24px;
+  width: 24px;
+}
+
 @keyframes loading {
   0% {
     -webkit-transform: rotate(0deg);

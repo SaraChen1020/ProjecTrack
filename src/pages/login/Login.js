@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { BiLoaderAlt } from "react-icons/bi";
+import { TbAlertTriangle } from "react-icons/tb";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -40,6 +41,14 @@ export default function Login() {
         <button className="btn" disabled>
           <BiLoaderAlt className="loading" />
         </button>
+      )}
+      {error && (
+        <div className="error">
+          <div className="error-icon">
+            <TbAlertTriangle />
+          </div>
+          {error}
+        </div>
       )}
       <div className="message">
         還沒有帳號? <Link to="/signup">點此註冊</Link>

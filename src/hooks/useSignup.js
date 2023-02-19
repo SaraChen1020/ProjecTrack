@@ -44,9 +44,19 @@ export const useSignup = () => {
       setError(null);
       setIsLoading(false);
       navigate("/project");
-    } catch (err) {
-      console.log(err.message);
-      setError(err.message);
+    } catch (error) {
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setError("信箱已重複註冊");
+          break;
+        case "auth/invalid-email":
+          setError("信箱格式錯誤");
+          break;
+        case "auth/weak-password":
+          setError("密碼需大於6個字元");
+          break;
+        default:
+      }
       setIsLoading(false);
     }
   };

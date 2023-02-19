@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function Project() {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection("project");
+  const { documents, error, assigned, empty } = useCollection("project");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (documents) {
-      navigate(`/project/board`);
+    if (documents || assigned) {
+      navigate("/project/board");
     }
-    if (error) {
+    if (error && empty) {
       navigate("/project/empty");
     }
-  }, [documents, error]);
+  }, [documents, error, assigned, empty]);
 
   return <div>{/*...*/}</div>;
 }

@@ -151,7 +151,6 @@ const Card = ({
                 className="delete-card"
                 onClick={() => {
                   setIsDeleteCard(true);
-                  // deleteCard(boardId, id);
                 }}
               >
                 <BiTrash className="trash-icon" />
@@ -179,6 +178,7 @@ const Card = ({
             message="確定刪除此筆內容?"
             onConfirm={handleConfirm}
             onCancel={handleCancel}
+            alert={true}
           />
         </div>
       )}

@@ -34,6 +34,8 @@ export default function ProjectTitle({ document }) {
           <TiPencil className="edit-icon" />
         </div>
       )}
+
+      <hr className="line" />
     </>
   );
 }

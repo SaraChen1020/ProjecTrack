@@ -1,18 +1,17 @@
 .board {
-  flex: 1;
   border-radius: 5px;
-  width: 260px;
+  width: 250px;
   height: fit-content;
   padding: 10px;
 }
 
-.board .status {
+.status {
   font-size: 16px;
   display: flex;
   align-items: center;
 }
 
-.board .status-title {
+.status-title {
   display: flex;
   align-items: center;
   padding-left: 3px;
@@ -21,7 +20,7 @@
   width: fit-content;
 }
 
-.board .status-icon {
+.status-icon {
   font-size: 24px;
 }
 
@@ -82,7 +81,7 @@
   margin-top: 10px;
 }
 
-.board-0 {
+.board-area .board-0 {
   background: rgba(255, 253, 189, 0.7);
 }
 
@@ -94,7 +93,7 @@
   color: rgb(210, 208, 96);
 }
 
-.board-1 {
+.board-area .board-1 {
   background: rgba(194, 244, 251, 0.7);
 }
 
@@ -106,7 +105,7 @@
   color: rgb(91, 151, 189);
 }
 
-.board-2 {
+.board-area .board-2 {
   background: rgba(216, 254, 207, 0.7);
 }
 
@@ -116,4 +115,48 @@
 
 .board-2 .status-icon {
   color: rgb(108, 155, 125);
+}
+
+.board-area .board-3 {
+  background: #ffdcdcec;
+}
+
+.board-3 .status-title {
+  background: rgb(255 241 241);
+}
+
+.board-3 .status-icon {
+  color: #ffbcbc;
+}
+
+.board .closeEye {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.board .closeEye:hover {
+  color: var(--primary-color);
+}
+
+.board-area .title-tag {
+  margin: 10px 0;
+  display: flex;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0);
+}
+
+.tag {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.open-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.open-area:hover {
+  color: var(--primary-color);
 }

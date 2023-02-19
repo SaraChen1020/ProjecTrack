@@ -13,6 +13,7 @@ import Login from "./pages/login/Login";
 import Project from "./pages/projectBoard/Project";
 import ProjectBoard from "./pages/projectBoard/ProjectBoard";
 import CardInformation from "./pages/projectBoard/components/CardInformation";
+import Footer from "./components/footer";
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -45,6 +46,7 @@ function App() {
               element={user ? <CardInformation /> : <Navigate to="/login" />}
             />
           </Routes>
+          <Footer />
         </BrowserRouter>
       )}
     </div>

@@ -1,30 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useCollection } from "../../../hooks/useCollection";
 import { useAddProject } from "../../../hooks/useAddProject";
 import { useUpdateData } from "../../../hooks/useUpdateData";
+import { useFetchUsers } from "../../../hooks/useFetchUsers";
 
 // styles & components
 import "./Sidebar.css";
 import PopupAlert from "../../../components/PopupAlert";
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import { BiTrash } from "react-icons/bi";
-import { AiOutlineDoubleLeft } from "react-icons/ai";
+import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
+import { BiTrash, BiDotsHorizontalRounded } from "react-icons/bi";
+import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
+import { IoIosClose } from "react-icons/io";
 
 export default function Sidebar() {
+  const { users } = useFetchUsers();
   const navigate = useNavigate();
+  const [hideSidebar, setHideSidebar] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const [isDeleteProject, setIsDeleteProject] = useState(false);
+  const [isAssigned, setIsAssigned] = useState(false);
+  const [isSelect, setIsSelect] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [projectID, setProjectID] = useState("");
   const { documents, error, assigned, empty } = useCollection("project");
   const { addProject } = useAddProject();
-  const { deleteProject } = useUpdateData();
+  const { deleteProject, addProjectCoworkers, deleteProjectCoworkers } =
+    useUpdateData();
   const { docId } = useParams();
 
   const handleHover = () => {
     setIsHover(!isHover);
+  };
+
+  const handleShowMore = () => {
+    setShowMore(!showMore);
+    setIsAssigned(false);
+    setShowMenu(false);
+    setIsSelect(false);
   };
 
   const handleConfirm = () => {
@@ -39,12 +55,21 @@ export default function Sidebar() {
   return (
     <>
       <div
-        className="sidebar"
+        className={`right-icon-div ${hideSidebar ? "" : "none"}`}
+        onClick={() => setHideSidebar(false)}
+      >
+        <AiOutlineDoubleRight className="right-icon" />
+      </div>
+      <div
+        className={`sidebar ${hideSidebar ? "none" : ""}`}
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}
       >
         <div className="sidebar-close">
-          <div className={`left-icon-div ${isHover ? "" : "none"}`}>
+          <div
+            className={`left-icon-div ${isHover ? "" : "hidden"}`}
+            onClick={() => setHideSidebar(true)}
+          >
             <AiOutlineDoubleLeft className="left-icon" />
           </div>
         </div>
@@ -74,15 +99,143 @@ export default function Sidebar() {
                       <div>{title}</div>
                     </div>
                   </Link>
-                  <div className={`del-icon ${id == docId ? "active" : ""}`}>
-                    <BiTrash
-                      className="trash-icon"
-                      onClick={() => {
-                        setIsDeleteProject(true);
-                        setProjectID(id);
-                      }}
-                    />
+                  <div className={`more ${id == docId ? "active" : ""}`}>
+                    <div
+                      className={`more-icon-area ${id == docId ? "" : "none"}`}
+                    >
+                      <BiDotsHorizontalRounded
+                        className={`more-icon ${id == docId ? "" : "none"}`}
+                        onClick={handleShowMore}
+                      />
+                    </div>
+                    {showMore && id == docId && (
+                      <div className="function-area">
+                        <div
+                          className="function delete"
+                          onClick={() => {
+                            setIsDeleteProject(true);
+                            setProjectID(id);
+                            setShowMore(false);
+                          }}
+                        >
+                          <BiTrash className="function-icon" />
+                          <div>Delete this project</div>
+                        </div>
+                        <div
+                          className="function addAssign"
+                          onClick={() => {
+                            setIsAssigned(true);
+                            setProjectID(id);
+                            setShowMore(false);
+                          }}
+                        >
+                          <HiUsers className="function-icon" />
+                          <div>Assign to...</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
+                  {isAssigned && id == docId && (
+                    <>
+                      <div className="select-area">
+                        {!isSelect && (
+                          <div
+                            className="select"
+                            onClick={() => {
+                              setShowMenu(true);
+                              setIsSelect(true);
+                            }}
+                          >
+                            {coworkers.length == 0 && "Select user..."}
+                            {coworkers.length != 0 &&
+                              coworkers.map((doc) => {
+                                const { displayName, uid } = doc;
+                                return (
+                                  <div key={uid} className="name-content">
+                                    <div className="name-icon">
+                                      {displayName[0].toUpperCase()}
+                                    </div>
+                                    <div>{displayName}</div>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        )}
+
+                        {isSelect && (
+                          <div
+                            className="select"
+                            onClick={() => {
+                              setShowMenu(true);
+                              setIsSelect(true);
+                            }}
+                          >
+                            {coworkers.length == 0 && "Select user..."}
+                            {coworkers.length != 0 &&
+                              coworkers.map((member) => {
+                                const { displayName, uid } = member;
+                                return (
+                                  <div key={uid} className="name-content">
+                                    <div className="name-icon">
+                                      {displayName[0].toUpperCase()}
+                                    </div>
+                                    <div>{displayName}</div>
+                                    <div
+                                      className="close-icon"
+                                      onClick={() => {
+                                        deleteProjectCoworkers(member);
+                                      }}
+                                    >
+                                      <IoIosClose />
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        )}
+
+                        {showMenu && (
+                          <ul className="user-menu">
+                            {users
+                              .filter((allUser) => {
+                                return !coworkers.find(
+                                  (user) =>
+                                    user.uid === allUser.uid &&
+                                    user.name === allUser.name
+                                );
+                              })
+                              .map((member) => {
+                                const { displayName, uid } = member;
+                                return (
+                                  <li
+                                    key={uid}
+                                    className="option"
+                                    onClick={() => {
+                                      addProjectCoworkers(member);
+                                    }}
+                                  >
+                                    <div className="name-icon">
+                                      {displayName[0].toUpperCase()}
+                                    </div>
+                                    <div>{displayName}</div>
+                                  </li>
+                                );
+                              })}
+                            <div
+                              className="btn"
+                              onClick={() => {
+                                setIsAssigned(false);
+                                setShowMenu(false);
+                                setIsSelect(false);
+                              }}
+                            >
+                              Close
+                            </div>
+                          </ul>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               );
             })}
@@ -95,6 +248,7 @@ export default function Sidebar() {
               message="確定刪除此筆專案?"
               onConfirm={handleConfirm}
               onCancel={handleCancel}
+              alert={true}
             />
           </div>
         )}

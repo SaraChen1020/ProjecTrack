@@ -8,8 +8,12 @@
   color: rgba(25, 23, 17, 0.6);
 }
 
+.hidden {
+  visibility: hidden; /*會保留空間*/
+}
+
 .none {
-  visibility: hidden;
+  display: none; /*不會保留空間*/
 }
 
 .sidebar .sidebar-close {
@@ -19,20 +23,24 @@
   margin-bottom: 12px;
 }
 
-.sidebar .left-icon-div {
+.sidebar .left-icon-div,
+.right-icon-div {
   position: relative;
   cursor: pointer;
   width: 20px;
   height: 20px;
   border-radius: 4px;
   text-align: center;
+  font-size: 18px;
 }
 
-.sidebar .left-icon-div:hover {
+.sidebar .left-icon-div:hover,
+.right-icon-div:hover {
   background-color: rgb(216, 216, 216);
 }
 
-.sidebar .left-icon-div:hover::before {
+.sidebar .left-icon-div:hover::before,
+.right-icon-div:hover::before {
   position: absolute;
   top: -30px;
   left: 0px;
@@ -44,7 +52,14 @@
   padding: 3px;
   white-space: nowrap;
   font-weight: 500;
+}
+
+.sidebar .left-icon-div:hover::before {
   content: "Close sidebar";
+}
+
+.right-icon-div:hover::before {
+  content: "Open sidebar";
 }
 
 .sidebar .main-title {
@@ -89,6 +104,7 @@
 
 .sidebar .link-area {
   display: flex;
+  position: relative;
 }
 
 .sidebar a {
@@ -115,13 +131,175 @@
   margin-right: 5px;
 }
 
-.sidebar .del-icon {
+.sidebar .more {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 8px 0 8px auto;
-  cursor: pointer;
   padding-right: 12px;
+  position: relative;
+}
+
+.sidebar .more-icon-area {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.sidebar .more-icon-area:hover {
+  color: var(--primary-color);
+}
+
+.sidebar .more-icon-area:hover::before {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.54);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 3px;
+  white-space: nowrap;
+  z-index: 50;
+  content: "Delete and Assign to...";
+}
+
+.sidebar .function-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: absolute;
+  background: white;
+  top: 50%;
+  left: 50%;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 60;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.sidebar .function {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.sidebar .function:hover {
+  background-color: rgb(226, 226, 226);
+}
+
+.sidebar .delete:hover {
+  color: red;
+}
+
+.sidebar .addAssign:hover {
+  color: var(--primary-color);
+}
+
+.sidebar .function-icon {
+  font-size: 16px;
+}
+
+.sidebar .select-area {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  font-size: 14px;
+  background: white;
+  width: 110%;
+  z-index: 100;
+  border-radius: 3px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.sidebar .select {
+  cursor: pointer;
+  /* height: 30px; */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 3px 5px;
+}
+
+.sidebar .close-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar .close-icon:hover {
+  background-color: rgb(184, 184, 184);
+}
+
+.sidebar .user-menu {
+  background: white;
+  font-size: 14px;
+  border-radius: 0 0 3px 3px;
+  border-top: 1px solid rgba(25, 23, 17, 0.6);
+}
+
+.sidebar .option {
+  margin: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+}
+
+.sidebar .option:hover {
+  background-color: rgb(204, 204, 204);
+}
+
+.sidebar .name-content {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .name-icon {
+  box-sizing: content-box;
+  border: 1px solid rgba(25, 23, 17, 0.6);
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 14px;
+  background: rgb(255, 255, 255, 0);
+  margin-right: 3px;
+}
+
+.function div {
+  margin-left: 5px;
+  width: 100%;
+}
+
+.sidebar .btn {
+  cursor: pointer;
+  font-size: 14px;
+  background: rgb(255, 255, 255, 0);
+  text-align: center;
+  border-top: 1px solid rgba(25, 23, 17, 0.6);
+  padding: 1px;
+}
+
+.sidebar .btn:hover {
+  color: white;
+  background: #000;
 }
 
 .sidebar .trash-icon:hover {

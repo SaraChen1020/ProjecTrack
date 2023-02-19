@@ -16,6 +16,7 @@ export const useAddProject = () => {
       title: "專案標題",
       createdAt: Timestamp.now(),
       owner: user.uid,
+      ownerName: user.displayName,
       coworkers: [],
       boards: {
         ids: ["zero", "one", "two"],
@@ -23,14 +24,17 @@ export const useAddProject = () => {
           zero: {
             name: "待處理",
             cardIds: ["card1"],
+            show: true,
           },
           one: {
             name: "進行中",
             cardIds: ["card2"],
+            show: true,
           },
           two: {
             name: "已完成",
             cardIds: ["card3"],
+            show: true,
           },
         },
       },

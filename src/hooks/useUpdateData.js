@@ -25,6 +25,26 @@ export const useUpdateData = () => {
     await updateDoc(ref, { [`boards.byId.${boardId}.name`]: newBoardTitle });
   };
 
+  const hideBoard = async (boardId) => {
+    await updateDoc(ref, { [`boards.byId.${boardId}.show`]: false });
+  };
+
+  const showBoard = async (boardId) => {
+    await updateDoc(ref, { [`boards.byId.${boardId}.show`]: true });
+  };
+
+  const addNewBoard = async () => {
+    const newBoardID = "three";
+    await updateDoc(ref, {
+      ["boards.ids"]: arrayUnion(newBoardID),
+      [`boards.byId.${newBoardID}`]: {
+        name: "未命名",
+        cardIds: [],
+        show: true,
+      },
+    });
+  };
+
   const addNewCard = async (newCardValue, boardId) => {
     const newCardId = v4();
     await updateDoc(ref, {
@@ -36,6 +56,7 @@ export const useUpdateData = () => {
       [`cards.byId.${newCardId}.lastEditedTime`]: Timestamp.now(),
       [`cards.byId.${newCardId}.lastEditedUser`]: user.displayName,
       [`cards.byId.${newCardId}.assignTo`]: [],
+      [`cards.byId.${newCardId}.content`]: "",
     });
   };
 
@@ -87,6 +108,18 @@ export const useUpdateData = () => {
     });
   };
 
+  const addProjectCoworkers = async (coworkers) => {
+    await updateDoc(ref, {
+      ["coworkers"]: arrayUnion(coworkers),
+    });
+  };
+
+  const deleteProjectCoworkers = async (coworkers) => {
+    await updateDoc(ref, {
+      ["coworkers"]: arrayRemove(coworkers),
+    });
+  };
+
   const deleteProject = async (docId) => {
     await deleteDoc(doc(projectFirestore, "project", docId));
   };
@@ -94,6 +127,9 @@ export const useUpdateData = () => {
   return {
     changeProjectTitle,
     changeBoardTitle,
+    hideBoard,
+    showBoard,
+    addNewBoard,
     addNewCard,
     deleteCard,
     changeCardTitle,
@@ -101,6 +137,8 @@ export const useUpdateData = () => {
     updateCardInfo,
     addCardAssigner,
     deleteCardAssigner,
+    addProjectCoworkers,
+    deleteProjectCoworkers,
     deleteProject,
   };
 };

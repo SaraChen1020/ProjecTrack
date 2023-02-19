@@ -16,6 +16,8 @@ export const useCollection = (table) => {
   const [documents, setDocuments] = useState("");
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
+  const [assigned, setAssigned] = useState("");
+  const [empty, setEmpty] = useState(false);
 
   useEffect(() => {
     const ref = collection(projectFirestore, table);
@@ -54,5 +56,49 @@ export const useCollection = (table) => {
     return () => unSub();
   }, []);
 
-  return { documents, error };
+  //查詢自己被標註的專案
+  useEffect(() => {
+    const ref = collection(projectFirestore, table);
+    const q = query(
+      ref,
+      where("coworkers", "array-contains", {
+        uid: user.uid,
+        displayName: user.displayName,
+      }),
+      where("owner", "!=", user.uid),
+      orderBy("owner"),
+      orderBy("createdAt", "asc")
+    );
+
+    //使用onSnapshot快照取得實時更新的資料
+    const unSub = onSnapshot(
+      q,
+      (querySnapshot) => {
+        if (querySnapshot.empty) {
+          console.log("No assigned project");
+          setEmpty(true);
+        } else {
+          let results = [];
+          querySnapshot.forEach((doc) => {
+            // setDocuments({ id: doc.id, ...doc.data() });
+            results.push({ id: doc.id, ...doc.data() });
+          });
+
+          // update state
+          setEmpty(false);
+          setError(null);
+          setAssigned(results);
+        }
+      },
+      (error) => {
+        console.log(error);
+        setError("could not fetch the data");
+      }
+    );
+
+    // unsubscribe on unmount
+    return () => unSub();
+  }, []);
+
+  return { documents, error, assigned, empty };
 };

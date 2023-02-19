@@ -49,6 +49,20 @@
   background-color: rgb(204, 204, 204);
 }
 
+.select-user .btn {
+  cursor: pointer;
+  font-size: 14px;
+  background: rgb(255, 255, 255, 0);
+  text-align: center;
+  padding: 1px;
+  border-radius: 0 0 4px 4px;
+}
+
+.select-user .btn:hover {
+  color: white;
+  background: #000;
+}
+
 .select-user .close-icon {
   display: flex;
   justify-content: center;

@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { BiLoaderAlt } from "react-icons/bi";
 import { TbAlertTriangle } from "react-icons/tb";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isLoading, error } = useLogin();
+  const { login, googleLogin, isLoading, error } = useLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,9 +18,9 @@ export default function Login() {
 
   return (
     <form className="member-form" onSubmit={handleSubmit}>
-      <h2>會員登入</h2>
+      <h2>Log In</h2>
       <label>
-        <span>信箱:</span>
+        <span>Email:</span>
         <input
           required
           type="email"
@@ -28,7 +29,7 @@ export default function Login() {
         />
       </label>
       <label>
-        <span>密碼:</span>
+        <span>Password:</span>
         <input
           required
           type="password"
@@ -36,12 +37,25 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      {!isLoading && <button className="btn">登入</button>}
+      {!isLoading && <button className="btn">Log In</button>}
       {isLoading && (
         <button className="btn" disabled>
           <BiLoaderAlt className="loading" />
         </button>
       )}
+
+      <div
+        className="google"
+        onClick={() => {
+          googleLogin();
+        }}
+      >
+        <div className="google-icon">
+          <FcGoogle />
+        </div>
+        <div>Continue with Google</div>
+      </div>
+
       {error && (
         <div className="error">
           <div className="error-icon">
@@ -51,7 +65,7 @@ export default function Login() {
         </div>
       )}
       <div className="message">
-        還沒有帳號? <Link to="/signup">點此註冊</Link>
+        New to this site? <Link to="/signup"> Sign up</Link>
       </div>
     </form>
   );

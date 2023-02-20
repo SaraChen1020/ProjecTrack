@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { projectAuth } from "../utils/firebase";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { projectAuth, projectFirestore } from "../utils/firebase";
 import { useAuthContext } from "./useAuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -33,13 +38,13 @@ export const useLogin = () => {
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-email":
-          setError("信箱格式錯誤");
+          setError("Invalid email.");
           break;
         case "auth/user-not-found":
-          setError("信箱不存在");
+          setError("Email not found.");
           break;
         case "auth/wrong-password":
-          setError("密碼輸入錯誤");
+          setError("Incorrect password.");
           break;
         default:
       }
@@ -47,5 +52,47 @@ export const useLogin = () => {
     }
   };
 
-  return { login, isLoading, error };
+  const googleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await signInWithPopup(projectAuth, provider);
+
+      if (!response) {
+        throw new Error("Could not complete login");
+      }
+
+      // dispatch login action
+      await dispatch({ type: "LOGIN", payload: response.user });
+
+      // 新增user collection存放會員uid
+      const userRef = doc(projectFirestore, "users", response.user.uid);
+      await setDoc(userRef, {
+        uid: response.user.uid || "",
+        displayName: response.user.displayName || "",
+      });
+
+      setIsLoading(false);
+      setError(null);
+      navigate("/project");
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          setError("Invalid email.");
+          break;
+        case "auth/user-not-found":
+          setError("Email not found.");
+          break;
+        case "auth/wrong-password":
+          setError("Incorrect password.");
+          break;
+        default:
+      }
+      setIsLoading(false);
+    }
+  };
+
+  return { login, googleLogin, isLoading, error };
 };

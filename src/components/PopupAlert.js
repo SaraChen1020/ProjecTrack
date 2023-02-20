@@ -16,10 +16,10 @@ export default function PopupAlert(props) {
       <div className="popup-message">{props.message}</div>
       <div className="btn-area">
         <div className="btn" onClick={props.onConfirm}>
-          確定
+          OK
         </div>
         <div className="btn" onClick={props.onCancel}>
-          取消
+          Cancel
         </div>
       </div>
     </div>

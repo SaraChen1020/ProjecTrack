@@ -13,7 +13,7 @@ export const useAddProject = () => {
     setError(null);
 
     const docData = {
-      title: "專案標題",
+      title: "Project Title",
       createdAt: Timestamp.now(),
       owner: user.uid,
       ownerName: user.displayName,
@@ -22,17 +22,17 @@ export const useAddProject = () => {
         ids: ["zero", "one", "two"],
         byId: {
           zero: {
-            name: "待處理",
+            name: "Not Started",
             cardIds: ["card1"],
             show: true,
           },
           one: {
-            name: "進行中",
+            name: "In Progress",
             cardIds: ["card2"],
             show: true,
           },
           two: {
-            name: "已完成",
+            name: "Finished",
             cardIds: ["card3"],
             show: true,
           },
@@ -41,7 +41,7 @@ export const useAddProject = () => {
       cards: {
         byId: {
           card1: {
-            cardTitle: "待處理1",
+            cardTitle: "Untitled 1",
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),
@@ -51,7 +51,7 @@ export const useAddProject = () => {
             assignTo: [],
           },
           card2: {
-            cardTitle: "進行中1",
+            cardTitle: "Untitled 2",
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),
@@ -61,7 +61,7 @@ export const useAddProject = () => {
             assignTo: [],
           },
           card3: {
-            cardTitle: "已完成1",
+            cardTitle: "Untitled 3",
             dueDate: new Date().toString(),
             createdBy: user.displayName,
             createdTime: Timestamp.now(),

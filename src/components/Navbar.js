@@ -30,12 +30,12 @@ export default function Navbar() {
               <>
                 <li>
                   <Link to="/login">
-                    <span className="sign-btn">登入</span>
+                    <span className="sign-btn">Log In</span>
                   </Link>
                 </li>
                 <li>
                   <Link to="/signup">
-                    <span className="sign-btn">註冊</span>
+                    <span className="sign-btn">Sign Up</span>
                   </Link>
                 </li>
               </>
@@ -45,7 +45,7 @@ export default function Navbar() {
                 <li className="greeting">Hello, {user.displayName}</li>
                 <li>
                   <button className="btn" onClick={logout}>
-                    登出
+                    Logout
                   </button>
                 </li>
               </>

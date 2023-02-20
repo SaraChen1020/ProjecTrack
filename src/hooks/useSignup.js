@@ -47,13 +47,13 @@ export const useSignup = () => {
     } catch (error) {
       switch (error.code) {
         case "auth/email-already-in-use":
-          setError("信箱已重複註冊");
+          setError("Email already in use.");
           break;
         case "auth/invalid-email":
-          setError("信箱格式錯誤");
+          setError("Invalid email.");
           break;
         case "auth/weak-password":
-          setError("密碼需大於6個字元");
+          setError("Password must be at least 6 characters.");
           break;
         default:
       }

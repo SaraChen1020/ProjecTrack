@@ -38,7 +38,7 @@ export const useUpdateData = () => {
     await updateDoc(ref, {
       ["boards.ids"]: arrayUnion(newBoardID),
       [`boards.byId.${newBoardID}`]: {
-        name: "未命名",
+        name: "Untitled",
         cardIds: [],
         show: true,
       },

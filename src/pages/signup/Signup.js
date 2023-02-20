@@ -18,9 +18,9 @@ export default function Signup() {
 
   return (
     <form className="member-form" onSubmit={handleSubmit}>
-      <h2>註冊新帳號</h2>
+      <h2>Sign Up</h2>
       <label>
-        <span>使用者名稱:</span>
+        <span>Display Name:</span>
         <input
           required
           type="text"
@@ -29,7 +29,7 @@ export default function Signup() {
         />
       </label>
       <label>
-        <span>信箱:</span>
+        <span>Email:</span>
         <input
           required
           type="email"
@@ -38,7 +38,7 @@ export default function Signup() {
         />
       </label>
       <label>
-        <span>密碼:</span>
+        <span>Password:</span>
         <input
           required
           type="password"
@@ -47,7 +47,7 @@ export default function Signup() {
         />
       </label>
 
-      {!isLoading && <button className="btn">註冊</button>}
+      {!isLoading && <button className="btn">Sign Up</button>}
       {isLoading && (
         <button className="btn" disabled>
           <BiLoaderAlt className="loading" />
@@ -62,7 +62,7 @@ export default function Signup() {
         </div>
       )}
       <div className="message">
-        已有帳號? <Link to="/login">點此登入</Link>
+        Have an account? <Link to="/login"> Log In</Link>
       </div>
     </form>
   );

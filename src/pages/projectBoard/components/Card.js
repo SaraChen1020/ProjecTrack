@@ -175,7 +175,7 @@ const Card = ({
       {isDeleteCard && (
         <div className="card-backdrop">
           <PopupAlert
-            message="確定刪除此筆內容?"
+            message="Are you sure you want to delete this content?"
             onConfirm={handleConfirm}
             onCancel={handleCancel}
             alert={true}

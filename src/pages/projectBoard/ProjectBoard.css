@@ -4,7 +4,7 @@
 
 .project-board {
   width: 100%;
-  min-height: 700px;
+  min-height: 800px;
   background-image: url("../../images/project-background.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -59,17 +59,37 @@
   gap: 20px;
 }
 
-.project-board .newBoard {
+.project-board .newBoard-area {
+  margin-top: 8px;
+  position: relative;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   font-size: 28px;
-  margin-top: 8px;
   border-radius: 5px;
   color: rgba(25, 23, 17, 0.6);
+  display: flex;
+  align-items: center;
 }
 
-.project-board .newBoard:hover {
+.project-board .newBoard-area:hover {
   background: var(--primary-color);
   color: white;
+}
+
+.project-board .newBoard-area:hover::before {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.54);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 3px;
+  white-space: nowrap;
+  z-index: 50;
+  content: "Add new board";
 }
 
 .project-board .hide-title {

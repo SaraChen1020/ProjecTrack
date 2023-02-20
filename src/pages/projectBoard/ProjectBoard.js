@@ -49,7 +49,12 @@ export default function ProjectBoard() {
                   );
                 })}
                 {document.boards.ids.length < 4 && (
-                  <BiPlus className="newBoard" onClick={() => addNewBoard()} />
+                  <div className="newBoard-area">
+                    <BiPlus
+                      className="newBoard"
+                      onClick={() => addNewBoard()}
+                    />
+                  </div>
                 )}
                 <div className="hide-area">
                   <div className="hide-title">Hidden Board</div>

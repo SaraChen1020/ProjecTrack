@@ -51,11 +51,32 @@
 .member-form .message {
   margin-top: 12px;
   text-align: center;
+  color: var(--text-color);
 }
 
 .member-form a {
-  text-decoration: underline;
-  color: black;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.member-form .google {
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  padding: 8px;
+  margin: 10px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  width: 100%;
+  border: 1px solid var(--text-color);
+  font-weight: 500;
+}
+
+.member-form .google:hover {
+  background: #fff0ac;
+  border: 1px solid #fff0ac;
 }
 
 .loading {
@@ -68,7 +89,7 @@
   background: pink;
   border: 1px solid red;
   border-radius: 4px;
-  padding: 8px;
+  padding: 8px 6px;
   margin: 10px 0;
   justify-content: center;
   align-items: center;
@@ -81,6 +102,16 @@
   font-size: 20px;
   height: 24px;
   width: 24px;
+}
+
+.google-icon {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-size: 22px;
+  height: 24px;
+  width: 24px;
+  margin-right: 5px;
 }
 
 @keyframes loading {

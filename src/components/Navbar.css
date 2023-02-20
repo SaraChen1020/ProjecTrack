@@ -6,12 +6,12 @@
   left: 0;
   width: 100%;
   z-index: 300;
-  height: 80px;
+  height: 70px;
 }
 
 .navbar {
   width: 100%;
-  padding: 20px 0;
+  padding: 15px 0;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -47,7 +47,7 @@
 
 .navbar .sign-btn {
   display: flex;
-  width: 60px;
+  width: 70px;
   justify-content: center;
   align-items: center;
   height: 40px;
@@ -71,7 +71,7 @@
   border: 1px solid var(--primary-color);
   padding: 6px;
   font-weight: bold;
-  width: 60px;
+  width: fit-content;
 }
 
 .navbar .btn:hover {
@@ -85,5 +85,5 @@
 }
 
 .navbar-placeholder {
-  height: 80px;
+  height: 70px;
 }

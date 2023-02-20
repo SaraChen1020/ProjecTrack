@@ -101,10 +101,12 @@ export default function Sidebar() {
                   </Link>
                   <div className={`more ${id == docId ? "active" : ""}`}>
                     <div
-                      className={`more-icon-area ${id == docId ? "" : "none"}`}
+                      className={`more-icon-area ${
+                        id == docId ? "" : "hidden"
+                      }`}
                     >
                       <BiDotsHorizontalRounded
-                        className={`more-icon ${id == docId ? "" : "none"}`}
+                        className={`more-icon ${id == docId ? "" : "hidden"}`}
                         onClick={handleShowMore}
                       />
                     </div>
@@ -245,7 +247,7 @@ export default function Sidebar() {
         {isDeleteProject && (
           <div className="card-backdrop">
             <PopupAlert
-              message="確定刪除此筆專案?"
+              message="Are you sure you want to delete this project?"
               onConfirm={handleConfirm}
               onCancel={handleCancel}
               alert={true}

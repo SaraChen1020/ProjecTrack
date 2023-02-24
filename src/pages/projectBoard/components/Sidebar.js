@@ -12,10 +12,10 @@ import PopupAlert from "../../../components/PopupAlert";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { BiTrash, BiDotsHorizontalRounded } from "react-icons/bi";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
-import { BsFillPeopleFill } from "react-icons/bs";
+import { BsFillPeopleFill, BsList } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 
-export default function Sidebar() {
+export default function Sidebar({ showSidebar, setShowSidebar }) {
   const { users } = useFetchUsers();
   const navigate = useNavigate();
   const [hideSidebar, setHideSidebar] = useState(false);
@@ -52,6 +52,14 @@ export default function Sidebar() {
     setIsDeleteProject(false);
   };
 
+  const displayStyle = {
+    display: showSidebar ? "block" : "",
+  };
+
+  const iconDisplayStyle = {
+    display: showSidebar ? "none" : "",
+  };
+
   return (
     <>
       <div
@@ -60,8 +68,16 @@ export default function Sidebar() {
       >
         <AiOutlineDoubleRight className="right-icon" />
       </div>
+      <div className="mobile-list" style={iconDisplayStyle}>
+        <BsList
+          onClick={() => {
+            setShowSidebar(true);
+          }}
+        />
+      </div>
       <div
         className={`sidebar ${hideSidebar ? "none" : ""}`}
+        style={displayStyle}
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}
       >
@@ -72,6 +88,15 @@ export default function Sidebar() {
           >
             <AiOutlineDoubleLeft className="left-icon" />
           </div>
+        </div>
+
+        <div className="mobile-sidebar-close">
+          <AiOutlineDoubleLeft
+            className="left-icon-div"
+            onClick={() => {
+              setShowSidebar(false);
+            }}
+          />
         </div>
 
         <div className="main-title">
@@ -104,10 +129,10 @@ export default function Sidebar() {
                       className={`more-icon-area ${
                         id == docId ? "" : "hidden"
                       }`}
+                      onClick={handleShowMore}
                     >
                       <BiDotsHorizontalRounded
                         className={`more-icon ${id == docId ? "" : "hidden"}`}
-                        onClick={handleShowMore}
                       />
                     </div>
                     {showMore && id == docId && (

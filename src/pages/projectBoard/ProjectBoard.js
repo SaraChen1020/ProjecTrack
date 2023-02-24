@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDocument } from "../../hooks/useDocument";
 import { useUpdateData } from "../../hooks/useUpdateData";
 
@@ -14,6 +14,7 @@ import { BiPlus } from "react-icons/bi";
 export default function ProjectBoard() {
   const { document, error } = useDocument();
   const { addNewBoard } = useUpdateData();
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const draggingBoard = useRef();
   const dragOverBoard = useRef();
@@ -22,60 +23,62 @@ export default function ProjectBoard() {
 
   return (
     <div className="project">
-      <Sidebar />
-      <div className="project-board">
-        {!document && <div className="error-message">{error}</div>}
-        {document && (
-          <>
-            <div className="content">
-              <ProjectTitle document={document} />
-              <div className="board-area">
-                {document.boards.ids.map((id, index) => {
-                  return (
-                    <Board
-                      key={id}
-                      boardId={id}
-                      index={index}
-                      title={document.boards.byId[id].name}
-                      show={document.boards.byId[id].show}
-                      cardIds={document.boards.byId[id].cardIds}
-                      cardsById={document.cards.byId}
-                      document={document}
-                      draggingItem={draggingItem}
-                      draggingBoard={draggingBoard}
-                      dragOverItem={dragOverItem}
-                      dragOverBoard={dragOverBoard}
-                    />
-                  );
-                })}
-                {document.boards.ids.length < 4 && (
-                  <div className="newBoard-area">
-                    <BiPlus
-                      className="newBoard"
-                      onClick={() => addNewBoard()}
-                    />
-                  </div>
-                )}
-                <div className="hide-area">
-                  <div className="hide-title">Hidden Board</div>
-
+      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      {!showSidebar && (
+        <div className="project-board">
+          {!document && <div className="error-message">{error}</div>}
+          {document && (
+            <>
+              <div className="content">
+                <ProjectTitle document={document} />
+                <div className="board-area">
                   {document.boards.ids.map((id, index) => {
                     return (
-                      <TitleTag
+                      <Board
                         key={id}
                         boardId={id}
                         index={index}
                         title={document.boards.byId[id].name}
                         show={document.boards.byId[id].show}
+                        cardIds={document.boards.byId[id].cardIds}
+                        cardsById={document.cards.byId}
+                        document={document}
+                        draggingItem={draggingItem}
+                        draggingBoard={draggingBoard}
+                        dragOverItem={dragOverItem}
+                        dragOverBoard={dragOverBoard}
                       />
                     );
                   })}
+                  {document.boards.ids.length < 4 && (
+                    <div className="newBoard-area">
+                      <BiPlus
+                        className="newBoard"
+                        onClick={() => addNewBoard()}
+                      />
+                    </div>
+                  )}
+                  <div className="hide-area">
+                    <div className="hide-title">Hidden Board</div>
+
+                    {document.boards.ids.map((id, index) => {
+                      return (
+                        <TitleTag
+                          key={id}
+                          boardId={id}
+                          index={index}
+                          title={document.boards.byId[id].name}
+                          show={document.boards.byId[id].show}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

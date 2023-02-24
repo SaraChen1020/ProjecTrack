@@ -1,6 +1,6 @@
 .board {
   border-radius: 5px;
-  width: 250px;
+  width: 240px;
   height: fit-content;
   padding: 10px;
 }
@@ -159,4 +159,18 @@
 
 .open-area:hover {
   color: var(--primary-color);
+}
+
+@media (max-width: 750px) {
+  .board {
+    width: 300px;
+  }
+
+  .board-area .title-tag {
+    justify-content: center;
+  }
+
+  .open-area {
+    margin-left: 15px;
+  }
 }

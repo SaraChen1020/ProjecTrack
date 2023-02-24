@@ -10,7 +10,7 @@
 
 .card-info {
   width: 70%;
-  height: 90%;
+  height: 95%;
   margin: 20px auto;
   background: #eee;
   padding: 20px;
@@ -136,6 +136,11 @@
   padding: 15px;
 }
 
+.card-info .markdown-preview ul {
+  list-style-type: unset;
+  padding-left: 15px;
+}
+
 .card-info .save-btn {
   cursor: pointer;
   font-size: 16px;
@@ -151,4 +156,29 @@
 .card-info .save-btn:hover {
   color: white;
   background: #000;
+}
+
+@media (max-width: 1450px) {
+  .card-info {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .card-info .project-content {
+    display: block;
+  }
+}
+
+@media (max-width: 610px) {
+  .card-info {
+    width: 95%;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 450px) {
+  .card-info .datepicker {
+    width: 90%;
+  }
 }

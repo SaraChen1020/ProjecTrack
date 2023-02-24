@@ -87,3 +87,15 @@
 .navbar-placeholder {
   height: 70px;
 }
+
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 15px 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar .greeting {
+    display: none;
+  }
+}

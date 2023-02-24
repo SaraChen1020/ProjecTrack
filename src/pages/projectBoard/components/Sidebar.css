@@ -3,7 +3,7 @@
   background: rgb(216, 232, 235);
   min-height: 800px;
   padding-top: 10px;
-  padding-left: 20px;
+  padding-left: 15px;
   font-size: 16px;
   color: rgba(25, 23, 17, 0.6);
 }
@@ -34,6 +34,16 @@
   font-size: 18px;
 }
 
+.mobile-list {
+  font-size: 30px;
+  display: none;
+  margin-top: 5px;
+}
+
+.mobile-list svg {
+  cursor: pointer;
+}
+
 .sidebar .left-icon-div:hover,
 .right-icon-div:hover {
   background-color: rgb(216, 216, 216);
@@ -61,6 +71,14 @@
 
 .right-icon-div:hover::before {
   content: "Open sidebar";
+}
+
+.mobile-sidebar-close {
+  display: none;
+  text-align: end;
+  padding-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .sidebar .main-title {
@@ -311,4 +329,50 @@
 
 .sidebar .team-title {
   margin-top: 30px;
+}
+
+@media (max-width: 560px) {
+  .sidebar {
+    display: none;
+    width: 100%;
+  }
+
+  .sidebar .main-title,
+  .sidebar .link-area {
+    font-size: 18px;
+  }
+
+  .sidebar .sidebar-close {
+    display: none;
+  }
+
+  .mobile-list {
+    display: block;
+  }
+
+  .mobile-sidebar-close {
+    display: block;
+  }
+
+  .sidebar .add-project:hover::before {
+    left: -80px;
+  }
+
+  .sidebar .project-link {
+    padding: 10px 0 10px 10px;
+  }
+
+  .sidebar .more-icon-area:hover::before {
+    left: -100px;
+  }
+
+  .sidebar .function-area {
+    left: -150px;
+    top: 70%;
+    font-size: 16px;
+  }
+
+  .sidebar .select-area {
+    width: 95%;
+  }
 }

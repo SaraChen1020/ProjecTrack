@@ -27,12 +27,8 @@ export default function CardInformation({
   dueDate,
   setDueDate,
 }) {
-  const {
-    updateCardInfo,
-    changeCardDueDate,
-    changeCardTitle,
-    addProjectCoworkers,
-  } = useUpdateData();
+  const { updateCardInfo, changeCardDueDate, changeCardTitle } =
+    useUpdateData();
   const cardStatus = document.boards.byId[boardId].name;
   const createdDate = new Date(value.createdTime.toDate().toString());
   const createdTime = createdDate.toLocaleString("en-US", {
@@ -53,7 +49,6 @@ export default function CardInformation({
   const [isEditing, setIsEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(value.cardTitle);
   const [markdownText, setMarkdownText] = useState(value.content);
-  const [updateCoworkers, setUpdateCoworkers] = useState(document.coworkers);
 
   useEffect(() => {
     setCardTitle(value.cardTitle);
@@ -115,11 +110,7 @@ export default function CardInformation({
               <p className="project-name">Assign To</p>
             </div>
             <div className="row-content">
-              <SelectUser
-                cardId={id}
-                document={document}
-                setUpdateCoworkers={setUpdateCoworkers}
-              />
+              <SelectUser cardId={id} document={document} />
             </div>
           </li>
           <li className="project-row">
@@ -187,7 +178,7 @@ export default function CardInformation({
           onClick={() => {
             setShowInformation(false);
             updateCardInfo(id, cardTitle, markdownText);
-            addProjectCoworkers(updateCoworkers);
+            // addProjectCoworkers(updateCoworkers);
           }}
         >
           儲存

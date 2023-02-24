@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useFetchUsers } from "../../../hooks/useFetchUsers";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
 import "./SelectUser.css";
 import { IoIosClose } from "react-icons/io";
 
-export default function SelectUser({ cardId, document, setUpdateCoworkers }) {
-  const { users } = useFetchUsers();
+export default function SelectUser({ cardId, document }) {
   //此卡片的指派欄位
   const cardAssigner = document.cards.byId[cardId].assignTo;
   const [alreadyAssign, setAlreadyAssign] = useState([]);
   const [empty, setEmpty] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [selectedUser, setSelectedUser] = useState("");
   const [isSelect, setIsSelect] = useState(false);
   const [unAssigner, setUnAssigner] = useState([]);
   const { addCardAssigner, deleteCardAssigner } = useUpdateData();
@@ -39,9 +36,6 @@ export default function SelectUser({ cardId, document, setUpdateCoworkers }) {
   const handleAddAssign = (displayName, uid) => {
     const assignInfo = { displayName, uid };
     addCardAssigner(cardId, assignInfo);
-    setUpdateCoworkers((prevData) => {
-      return [...prevData, uid];
-    });
   };
 
   const handelDeleteAssign = (displayName, uid) => {

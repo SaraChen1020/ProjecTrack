@@ -2,15 +2,12 @@ import { projectFirestore } from "../utils/firebase";
 import { useAuthContext } from "./useAuthContext";
 import {
   collection,
-  getDoc,
-  doc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
   where,
 } from "firebase/firestore";
-import { useState, useReducer, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const useCollection = (table) => {
   const [documents, setDocuments] = useState("");
@@ -37,7 +34,6 @@ export const useCollection = (table) => {
         } else {
           let results = [];
           querySnapshot.forEach((doc) => {
-            // setDocuments({ id: doc.id, ...doc.data() });
             results.push({ id: doc.id, ...doc.data() });
           });
 
@@ -80,7 +76,6 @@ export const useCollection = (table) => {
         } else {
           let results = [];
           querySnapshot.forEach((doc) => {
-            // setDocuments({ id: doc.id, ...doc.data() });
             results.push({ id: doc.id, ...doc.data() });
           });
 
@@ -92,7 +87,7 @@ export const useCollection = (table) => {
       },
       (error) => {
         console.log(error);
-        setError("could not fetch the data");
+        setError("Could not fetch the data");
       }
     );
 

@@ -16,6 +16,10 @@
   background-color: rgb(249, 249, 249);
 }
 
+.card-area .card-title {
+  word-wrap: break-word;
+}
+
 .card-area input {
   outline: none;
   border: 0;
@@ -120,7 +124,9 @@
   cursor: pointer;
   background: rgb(255, 255, 255, 0);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: "Merriweather";
+  width: 55px;
 }
 
 .card-area .datepicker:hover {

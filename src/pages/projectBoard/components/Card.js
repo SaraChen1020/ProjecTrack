@@ -121,7 +121,7 @@ const Card = ({
             setIsHover(false);
           }}
         >
-          <div>{cardTitle}</div>
+          <div className="card-title">{cardTitle}</div>
           <div className="assign-area">
             {document.coworkers &&
               cardAssigner.map((doc) => {

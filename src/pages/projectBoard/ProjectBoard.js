@@ -2,6 +2,7 @@ import React from "react";
 import { useRef, useState } from "react";
 import { useDocument } from "../../hooks/useDocument";
 import { useUpdateData } from "../../hooks/useUpdateData";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 // styles & components
 import "./ProjectBoard.css";
@@ -16,6 +17,7 @@ export default function ProjectBoard() {
   const { document, error } = useDocument();
   const { addNewBoard } = useUpdateData();
   const [showSidebar, setShowSidebar] = useState(false);
+  const { user } = useAuthContext();
 
   const draggingBoard = useRef();
   const dragOverBoard = useRef();
@@ -39,6 +41,57 @@ export default function ProjectBoard() {
             <>
               <div className="content">
                 <ProjectTitle document={document} />
+
+                {/* 當自己的專案有coworker時顯示成員名單 */}
+                {document.coworkers.length != 0 &&
+                  user.uid == document.owner && (
+                    <div className="member">
+                      Team Member :
+                      {document.coworkers.map((i) => {
+                        const { displayName, uid } = i;
+                        return (
+                          <div key={uid} className="member-area">
+                            <div className="name-icon">
+                              {displayName[0].toUpperCase()}
+                            </div>
+                            {document.coworkers.length < 4 && (
+                              <div className="member-name">{displayName}</div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                {/* 當自己被標註在其他專案時，顯示創建者及成員名單 */}
+                {user.uid != document.owner && (
+                  <>
+                    <div className="owner">
+                      Project Created By :
+                      <div className="name-icon">
+                        {document.ownerName[0].toUpperCase()}
+                      </div>
+                      <div className="owner-name">{document.ownerName}</div>
+                    </div>
+                    <div className="member">
+                      Team Member :
+                      {document.coworkers.map((i) => {
+                        const { displayName, uid } = i;
+                        return (
+                          <div key={uid} className="member-area">
+                            <div className="name-icon">
+                              {displayName[0].toUpperCase()}
+                            </div>
+                            {document.coworkers.length < 4 && (
+                              <div className="member-name">{displayName}</div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+
                 <div className="board-area">
                   {document.boards.ids.map((id, index) => {
                     return (

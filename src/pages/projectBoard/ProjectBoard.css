@@ -35,6 +35,43 @@
   margin: 40px 0px;
 }
 
+.content .owner,
+.content .member {
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.content .owner .name-icon,
+.content .member .name-icon {
+  box-sizing: content-box;
+  border: 1px solid var(--text-color);
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 16px;
+  background: rgb(255, 255, 255, 0);
+  color: var(--text-color);
+  margin-right: 2px;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 2px;
+}
+
+.content .owner-name,
+.content .member-name {
+  font-size: 16px;
+}
+
+.content .member .member-area {
+  display: flex;
+  align-items: center;
+}
+
 .project-board .project-title-input {
   font-family: "Merriweather", Noto Sans TC;
   font-size: 20px;
@@ -145,5 +182,11 @@
 @media (max-width: 560px) {
   .project-board .content {
     margin: 40px 0px;
+  }
+}
+
+@media (max-width: 450px) {
+  .content .member-name {
+    display: none;
   }
 }

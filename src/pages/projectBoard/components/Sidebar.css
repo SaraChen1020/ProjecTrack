@@ -1,5 +1,6 @@
 .sidebar {
   min-width: 220px;
+  max-width: 220px;
   background: rgb(216, 232, 235);
   min-height: 800px;
   padding-top: 10px;
@@ -82,11 +83,12 @@
 }
 
 .sidebar .main-title {
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: 10px;
   padding-left: 8px;
   display: flex;
-  font-weight: bolder;
+  font-weight: 900;
+  align-items: center;
 }
 
 .sidebar .add-project {
@@ -136,8 +138,10 @@
 .sidebar .project-link {
   display: flex;
   margin: 8px 0;
-  padding: 5px 0 5px 8px;
+  padding: 8px 0 8px 8px;
   border-radius: 20px 0 0 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sidebar .active {
@@ -151,12 +155,16 @@
   margin-right: 5px;
 }
 
+.sidebar .title {
+  width: 144px;
+}
+
 .sidebar .more {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 8px 0 8px auto;
-  padding-right: 12px;
+  padding-right: 9px;
   position: relative;
 }
 
@@ -335,11 +343,16 @@
   .sidebar {
     display: none;
     width: 100%;
+    max-width: none;
   }
 
   .sidebar .main-title,
   .sidebar .link-area {
     font-size: 18px;
+  }
+
+  .sidebar .title {
+    width: 100%;
   }
 
   .sidebar .sidebar-close {

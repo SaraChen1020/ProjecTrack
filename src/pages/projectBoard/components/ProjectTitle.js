@@ -19,6 +19,7 @@ export default function ProjectTitle({ document }) {
           className="project-title-input"
           value={projectTitle}
           autoFocus
+          maxLength="25"
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               changeProjectTitle(projectTitle);

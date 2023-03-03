@@ -121,7 +121,7 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                           <HiOutlineClipboardDocumentList />
                         )}
                       </div>
-                      <div>{title}</div>
+                      <div className="title">{title}</div>
                     </div>
                   </Link>
                   <div className={`more ${id == docId ? "active" : ""}`}>
@@ -294,7 +294,7 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                       <div className="doc-icon">
                         <BsFillPeopleFill />
                       </div>
-                      <div>{title}</div>
+                      <div className="title">{title}</div>
                     </div>
                   </Link>
                 </div>

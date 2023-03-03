@@ -30,12 +30,12 @@ export default function Navbar() {
               <>
                 <li>
                   <Link to="/login">
-                    <span className="sign-btn">Log In</span>
+                    <span className="sign-btn login">Log In</span>
                   </Link>
                 </li>
                 <li>
                   <Link to="/signup">
-                    <span className="sign-btn">Sign Up</span>
+                    <span className="sign-btn signup">Sign Up</span>
                   </Link>
                 </li>
               </>

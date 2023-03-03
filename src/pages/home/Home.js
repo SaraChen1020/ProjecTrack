@@ -74,6 +74,9 @@ export default function Home() {
             <div className="intro-content">
               <h2>Easy to browse in various devices.</h2>
               <p>You can easily browse content anytime on any device.</p>
+              <div className="btn">
+                <Link to="/project">Start Now !</Link>
+              </div>
             </div>
             <div className="intro-pic-area">
               <img src={device} alt="devices" />

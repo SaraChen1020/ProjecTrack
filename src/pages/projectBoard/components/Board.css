@@ -34,7 +34,7 @@
 }
 
 .board .edit-board-title-input {
-  font-family: Noto Sans TC;
+  font-family: "Merriweather", Noto Sans TC;
   outline: none;
   width: 120px;
   border: 0;
@@ -73,7 +73,7 @@
   height: 40px;
   width: 100%;
   border-radius: 4px;
-  font-family: Noto Sans TC;
+  font-family: "Merriweather", Noto Sans TC;
   font-size: 18px;
   outline: none;
   border: 1px solid var(--text-color);

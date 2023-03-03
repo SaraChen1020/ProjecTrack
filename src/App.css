@@ -24,10 +24,11 @@
 .member-form input {
   margin-top: 5px;
   width: 100%;
-  padding: 8px 6px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 18px;
+  font-family: "Merriweather", Noto Sans TC;
 }
 
 .member-form .btn {
@@ -41,6 +42,7 @@
   padding: 10px 6px;
   margin-top: 5px;
   font-weight: bold;
+  font-family: "Merriweather";
 }
 
 .member-form .btn:hover {
@@ -58,6 +60,10 @@
   text-decoration: none;
   color: var(--primary-color);
   font-weight: bold;
+}
+
+.member-form a:hover {
+  color: #008892;
 }
 
 .member-form .google {
@@ -93,6 +99,7 @@
   margin: 10px 0;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
 }
 
 .error-icon {
@@ -100,7 +107,7 @@
   justify-content: center;
   align-items: end;
   font-size: 20px;
-  height: 24px;
+  height: 22px;
   width: 24px;
 }
 
@@ -108,7 +115,7 @@
   display: flex;
   justify-content: center;
   align-items: end;
-  font-size: 22px;
+  font-size: 24px;
   height: 24px;
   width: 24px;
   margin-right: 5px;

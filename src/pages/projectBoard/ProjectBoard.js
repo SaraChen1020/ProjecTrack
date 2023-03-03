@@ -10,6 +10,7 @@ import ProjectTitle from "./components/ProjectTitle";
 import Board from "./components/Board";
 import TitleTag from "./components/TitleTag";
 import { BiPlus } from "react-icons/bi";
+import { AiFillAlert } from "react-icons/ai";
 
 export default function ProjectBoard() {
   const { document, error } = useDocument();
@@ -26,7 +27,14 @@ export default function ProjectBoard() {
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       {!showSidebar && (
         <div className="project-board">
-          {!document && <div className="error-message">{error}</div>}
+          {!document && (
+            <div className="error-message">
+              <div className="alert-icon">
+                <AiFillAlert />
+              </div>
+              <div>{error}</div>
+            </div>
+          )}
           {document && (
             <>
               <div className="content">

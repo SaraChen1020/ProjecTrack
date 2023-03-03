@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // styles
 import "./Home.css";
@@ -9,9 +10,12 @@ import DND_gif from "../../images/dnd.gif";
 import Intro_2 from "../../images/intro-2.jpg";
 import assign_gif from "../../images/assign.gif";
 import Intro_3 from "../../images/intro-3.jpg";
+import privacy_gif from "../../images/privacy.gif";
 import device from "../../images/device.jpg";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="home">
       <div className="main">
@@ -23,9 +27,15 @@ export default function Home() {
               ProjecTrack provides you an easy way to manage not only your own
               project but also team project.
             </p>
-            <div className="start-btn">
-              <Link to="/project">Get Start Now !</Link>
-            </div>
+            <button
+              class="start-button"
+              role="button"
+              onClick={() => {
+                navigate("/project");
+              }}
+            >
+              Get Start Now !
+            </button>
           </div>
           <div className="picture">
             <div className="pic"></div>
@@ -65,7 +75,7 @@ export default function Home() {
               <p>Non-team members can't view project through the link.</p>
             </div>
             <div className="intro-pic-area">
-              <img src={assign_gif} alt="assign-gif" />
+              <img src={privacy_gif} alt="assign-gif" />
             </div>
           </div>
         </div>
@@ -73,7 +83,7 @@ export default function Home() {
           <div className="intro-section intro-section-4">
             <div className="intro-content">
               <h2>Easy to browse in various devices.</h2>
-              <p>You can easily browse content anytime on any device.</p>
+              <p>With any device, you can easily browse content anytime.</p>
               <div className="btn">
                 <Link to="/project">Start Now !</Link>
               </div>

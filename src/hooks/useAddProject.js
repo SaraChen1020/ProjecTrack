@@ -47,7 +47,16 @@ export const useAddProject = () => {
             createdTime: Timestamp.now(),
             lastEditedTime: Timestamp.now(),
             lastEditedUser: user.displayName,
-            content: "",
+            content: `### Write something with markdown
+---
+1.
+2.
+3.
+---
+- 
+- 
+---
+*Note:something note...*`,
             assignTo: [],
           },
           card2: {

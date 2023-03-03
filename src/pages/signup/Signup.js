@@ -62,7 +62,7 @@ export default function Signup() {
         </div>
       )}
       <div className="message">
-        Have an account? <Link to="/login"> Log In</Link>
+        Already have account ? <Link to="/login"> Log In</Link>
       </div>
     </form>
   );

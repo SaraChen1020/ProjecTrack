@@ -65,7 +65,7 @@ export default function Login() {
         </div>
       )}
       <div className="message">
-        New to this site? <Link to="/signup"> Sign up</Link>
+        New to this site ? <Link to="/signup"> Sign up</Link>
       </div>
     </form>
   );

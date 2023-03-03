@@ -17,10 +17,10 @@ export const useDocument = () => {
       ref,
       (doc) => {
         if (docId == "board" || docId == "empty") {
-          setError("No Project Selected");
+          setError("No Project Selected.");
         } else if (!doc.exists()) {
           console.log("No document");
-          setError("Cannot find the project");
+          setError("Cannot find the project.");
         } else if (
           //查詢專案中的owner或coworker是否有包含自己
           doc.data().owner == user.uid ||
@@ -32,12 +32,12 @@ export const useDocument = () => {
         } else {
           //沒有權限查看這個project
           setDocument("");
-          setError("Cannot access this project");
+          setError("Cannot access this project.");
         }
       },
       (error) => {
         console.log(error);
-        setError("Could not fetch the data");
+        setError("Internal Error.");
       }
     );
 

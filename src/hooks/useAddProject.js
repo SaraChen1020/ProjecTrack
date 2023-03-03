@@ -13,7 +13,7 @@ export const useAddProject = () => {
     setError(null);
 
     const docData = {
-      title: "Project Title",
+      title: "Untitled",
       createdAt: Timestamp.now(),
       owner: user.uid,
       ownerName: user.displayName,
@@ -66,7 +66,16 @@ export const useAddProject = () => {
             createdTime: Timestamp.now(),
             lastEditedTime: Timestamp.now(),
             lastEditedUser: user.displayName,
-            content: "",
+            content: `### Write something with markdown
+---
+1.
+2.
+3.
+---
+- 
+- 
+---
+*Note:something note...*`,
             assignTo: [],
           },
           card3: {
@@ -76,7 +85,16 @@ export const useAddProject = () => {
             createdTime: Timestamp.now(),
             lastEditedTime: Timestamp.now(),
             lastEditedUser: user.displayName,
-            content: "",
+            content: `### Write something with markdown
+---
+1.
+2.
+3.
+---
+- 
+- 
+---
+*Note:something note...*`,
             assignTo: [],
           },
         },

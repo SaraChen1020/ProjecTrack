@@ -37,7 +37,9 @@ const Board = ({
     setInputValue("");
     //離開input模式
     setIsAddingCard(false);
-    addNewCard(inputValue, boardId);
+    if (inputValue) {
+      addNewCard(inputValue, boardId);
+    }
   }
 
   const handleDragEnter = (e, boardId) => {

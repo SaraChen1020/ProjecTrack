@@ -43,7 +43,7 @@ module.exports = {
       filename: "./index.html",
       template: "./index.html",
       inject: true,
-      favicon: path.resolve("src/images/note.ico"),
+      favicon: path.resolve("src/images/logo.ico"),
     }),
     new MiniCssExtractPlugin({
       filename: "main.[hash].css",

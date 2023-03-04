@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
@@ -8,20 +7,13 @@ import "./CardInformation.css";
 import SelectUser from "./SelectUser";
 import ReactMarkdown from "react-markdown";
 import DatePicker from "react-datepicker";
-import {
-  BiLoader,
-  BiCalendar,
-  BiUserCircle,
-  BiTime,
-  BiImageAdd,
-} from "react-icons/bi";
+import { BiLoader, BiCalendar, BiUserCircle, BiTime } from "react-icons/bi";
 import { RxDotFilled } from "react-icons/rx";
 
 export default function CardInformation({
-  id,
-  index,
+  cardId,
   boardId,
-  value,
+  cardValue,
   document,
   setShowInformation,
   dueDate,
@@ -30,7 +22,7 @@ export default function CardInformation({
   const { updateCardInfo, changeCardDueDate, changeCardTitle } =
     useUpdateData();
   const cardStatus = document.boards.byId[boardId].name;
-  const createdDate = new Date(value.createdTime.toDate().toString());
+  const createdDate = new Date(cardValue.createdTime.toDate().toString());
   const createdTime = createdDate.toLocaleString("en-US", {
     month: "long",
     day: "numeric",
@@ -38,7 +30,7 @@ export default function CardInformation({
     hour: "numeric",
     minute: "numeric",
   });
-  const editDate = new Date(value.lastEditedTime.toDate().toString());
+  const editDate = new Date(cardValue.lastEditedTime.toDate().toString());
   const lastEditedTime = editDate.toLocaleString("en-US", {
     month: "long",
     day: "numeric",
@@ -47,12 +39,12 @@ export default function CardInformation({
     minute: "numeric",
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [cardTitle, setCardTitle] = useState(value.cardTitle);
-  const [markdownText, setMarkdownText] = useState(value.content);
+  const [cardTitle, setCardTitle] = useState(cardValue.cardTitle);
+  const [markdownText, setMarkdownText] = useState(cardValue.content);
 
   useEffect(() => {
-    setCardTitle(value.cardTitle);
-  }, [value.cardTitle]);
+    setCardTitle(cardValue.cardTitle);
+  }, [cardValue.cardTitle]);
 
   return (
     <div className="card-backdrop">
@@ -65,7 +57,7 @@ export default function CardInformation({
             onChange={(e) => setCardTitle(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                changeCardTitle(cardTitle, id);
+                changeCardTitle(cardTitle, cardId);
                 setIsEditing(false);
               }
             }}
@@ -99,7 +91,7 @@ export default function CardInformation({
                 className="datepicker"
                 onChange={(date) => {
                   setDueDate(date);
-                  changeCardDueDate(date.toString(), id);
+                  changeCardDueDate(date.toString(), cardId);
                 }}
               />
             </div>
@@ -110,7 +102,7 @@ export default function CardInformation({
               <p className="project-name">Assign To</p>
             </div>
             <div className="row-content">
-              <SelectUser cardId={id} document={document} />
+              <SelectUser cardId={cardId} document={document} />
             </div>
           </li>
           <li className="project-row">
@@ -120,9 +112,9 @@ export default function CardInformation({
             </div>
             <div className="row-content">
               <div className="name-icon">
-                {value.createdBy[0].toUpperCase()}
+                {cardValue.createdBy[0].toUpperCase()}
               </div>
-              <div>{value.createdBy}</div>
+              <div>{cardValue.createdBy}</div>
             </div>
           </li>
           <li className="project-row">
@@ -139,9 +131,9 @@ export default function CardInformation({
             </div>
             <div className="row-content">
               <div className="name-icon">
-                {value.lastEditedUser[0].toUpperCase()}
+                {cardValue.lastEditedUser[0].toUpperCase()}
               </div>
-              <div>{value.lastEditedUser}</div>
+              <div>{cardValue.lastEditedUser}</div>
             </div>
           </li>
           <li className="project-row">
@@ -177,8 +169,7 @@ export default function CardInformation({
           className="save-btn"
           onClick={() => {
             setShowInformation(false);
-            updateCardInfo(id, cardTitle, markdownText);
-            // addProjectCoworkers(updateCoworkers);
+            updateCardInfo(cardId, cardTitle, markdownText);
           }}
         >
           儲存

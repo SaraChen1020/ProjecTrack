@@ -8,37 +8,36 @@ import { projectFirestore } from "../../../utils/firebase";
 import "./Card.css";
 import { TiClipboard } from "react-icons/ti";
 import { BiTrash } from "react-icons/bi";
-import { TbAlertTriangle } from "react-icons/tb";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PopupAlert from "../../../components/PopupAlert";
 import CardInformation from "./CardInformation";
 
 const Card = ({
-  id,
+  cardId,
   index,
   boardId,
-  value,
+  cardValue,
   document,
   draggingItem,
   draggingBoard,
   dragOverItem,
   dragOverBoard,
 }) => {
-  const cardAssigner = document.cards.byId[id].assignTo;
+  const cardAssigner = document.cards.byId[cardId].assignTo;
   const [isHover, setIsHover] = useState(false);
   const [isDeleteCard, setIsDeleteCard] = useState(false);
-  const [cardTitle, setCardTitle] = useState(value.cardTitle);
-  const [dueDate, setDueDate] = useState(new Date(value.dueDate));
+  const [cardTitle, setCardTitle] = useState(cardValue.cardTitle);
+  const [dueDate, setDueDate] = useState(new Date(cardValue.dueDate));
   const [showInformation, setShowInformation] = useState(false);
   const { deleteCard, changeCardDueDate } = useUpdateData();
   const { user } = useAuthContext();
   const ref = doc(projectFirestore, "project", document.id);
 
   useEffect(() => {
-    setCardTitle(value.cardTitle);
-    setDueDate(new Date(value.dueDate));
-  }, [value]);
+    setCardTitle(cardValue.cardTitle);
+    setDueDate(new Date(cardValue.dueDate));
+  }, [cardValue]);
 
   const handleDragStart = (e, index, boardId) => {
     draggingItem.current = index;
@@ -90,13 +89,13 @@ const Card = ({
 
     //更新最後編輯時間&編輯者
     await updateDoc(ref, {
-      [`cards.byId.${id}.lastEditedTime`]: Timestamp.now(),
-      [`cards.byId.${id}.lastEditedUser`]: user.displayName,
+      [`cards.byId.${cardId}.lastEditedTime`]: Timestamp.now(),
+      [`cards.byId.${cardId}.lastEditedUser`]: user.displayName,
     });
   };
 
   const handleConfirm = () => {
-    deleteCard(boardId, id);
+    deleteCard(boardId, cardId);
   };
 
   const handleCancel = () => {
@@ -164,7 +163,7 @@ const Card = ({
               selected={dueDate}
               onChange={(date) => {
                 setDueDate(date);
-                changeCardDueDate(date.toString(), id);
+                changeCardDueDate(date.toString(), cardId);
               }}
               dateFormat="MMM dd"
               className="datepicker"
@@ -185,10 +184,9 @@ const Card = ({
 
       {showInformation && (
         <CardInformation
-          id={id}
-          index={index}
+          cardId={cardId}
           boardId={boardId}
-          value={value}
+          cardValue={cardValue}
           document={document}
           setShowInformation={setShowInformation}
           dueDate={dueDate}

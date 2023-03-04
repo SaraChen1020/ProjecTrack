@@ -40,7 +40,7 @@ export default function ProjectBoard() {
           {document && (
             <>
               <div className="content">
-                <ProjectTitle document={document} />
+                <ProjectTitle title={document.title} />
 
                 {/* 當自己的專案有coworker時顯示成員名單 */}
                 {document.coworkers.length != 0 &&
@@ -99,7 +99,7 @@ export default function ProjectBoard() {
                         key={id}
                         boardId={id}
                         index={index}
-                        title={document.boards.byId[id].name}
+                        theBoardTitle={document.boards.byId[id].name}
                         show={document.boards.byId[id].show}
                         cardIds={document.boards.byId[id].cardIds}
                         cardsById={document.cards.byId}
@@ -111,6 +111,8 @@ export default function ProjectBoard() {
                       />
                     );
                   })}
+
+                  {/* 當看板數量小於4時就出現新增看板的按鈕 */}
                   {document.boards.ids.length < 4 && (
                     <div className="newBoard-area">
                       <BiPlus
@@ -119,6 +121,8 @@ export default function ProjectBoard() {
                       />
                     </div>
                   )}
+
+                  {/* 隱藏看板功能 */}
                   <div className="hide-area">
                     <div className="hide-title">Hidden Board</div>
 

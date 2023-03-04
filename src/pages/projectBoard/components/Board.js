@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
 // styles & components
@@ -12,7 +12,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 const Board = ({
   index,
   boardId,
-  title,
+  theBoardTitle,
   show,
   cardIds,
   cardsById,
@@ -26,11 +26,11 @@ const Board = ({
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { changeBoardTitle, hideBoard, addNewCard } = useUpdateData();
-  const [boardTitle, setBoardTitle] = useState(title);
+  const [boardTitle, setBoardTitle] = useState(theBoardTitle);
 
   useEffect(() => {
-    setBoardTitle(title);
-  }, [title]);
+    setBoardTitle(theBoardTitle);
+  }, [theBoardTitle]);
 
   async function handleAddNewCard() {
     //清除input內容
@@ -102,13 +102,15 @@ const Board = ({
               onClick={() => hideBoard(boardId)}
             />
           </span>
+
+          {/* 卡片區 */}
           {cardIds.map((i, index) => (
             <Card
               key={i}
-              id={i}
+              cardId={i}
               index={index}
               boardId={boardId}
-              value={cardsById[i]}
+              cardValue={cardsById[i]}
               document={document}
               draggingItem={draggingItem}
               draggingBoard={draggingBoard}
@@ -117,6 +119,7 @@ const Board = ({
             />
           ))}
 
+          {/* 新增卡片按鈕 */}
           {isAddingCard ? (
             <input
               className="addCard-input"

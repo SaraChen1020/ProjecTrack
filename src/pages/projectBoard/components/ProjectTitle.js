@@ -3,14 +3,14 @@ import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { useUpdateData } from "../../../hooks/useUpdateData";
 
-export default function ProjectTitle({ document }) {
+export default function ProjectTitle({ title }) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [projectTitle, setProjectTitle] = useState();
   const { changeProjectTitle } = useUpdateData();
 
   useEffect(() => {
-    setProjectTitle(document.title);
-  }, [document]);
+    setProjectTitle(title);
+  }, [title]);
 
   return (
     <>

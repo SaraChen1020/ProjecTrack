@@ -24,7 +24,6 @@ export const useLogout = () => {
       setError(null);
       navigate("/");
     } catch (err) {
-      console.log(err.message);
       setError(err.message);
       setIsLoading(false);
     }

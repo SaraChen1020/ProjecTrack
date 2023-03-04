@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { projectFirestore } from "../utils/firebase";
-import { collection, onSnapshot, doc } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 export const useFetchUsers = () => {
   const [users, setUsers] = useState("");
@@ -17,7 +17,7 @@ export const useFetchUsers = () => {
         setUsers(userList);
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
       }
     );
     // unsubscribe on unmount

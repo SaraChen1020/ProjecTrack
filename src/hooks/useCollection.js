@@ -29,7 +29,6 @@ export const useCollection = (table) => {
       q,
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          console.log("No document");
           setError("No project selected");
         } else {
           let results = [];
@@ -43,7 +42,7 @@ export const useCollection = (table) => {
         }
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
         setError("could not fetch the data");
       }
     );
@@ -71,7 +70,6 @@ export const useCollection = (table) => {
       q,
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          console.log("No assigned project");
           setEmpty(true);
         } else {
           let results = [];
@@ -86,7 +84,7 @@ export const useCollection = (table) => {
         }
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
         setError("Could not fetch the data");
       }
     );

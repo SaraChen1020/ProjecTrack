@@ -19,7 +19,6 @@ export const useDocument = () => {
         if (docId == "board" || docId == "empty") {
           setError("No Project Selected.");
         } else if (!doc.exists()) {
-          console.log("No document");
           setError("Cannot find the project.");
         } else if (
           //查詢專案中的owner或coworker是否有包含自己
@@ -36,7 +35,7 @@ export const useDocument = () => {
         }
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
         setError("Internal Error.");
       }
     );

@@ -12,7 +12,6 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Project from "./pages/projectBoard/Project";
 import ProjectBoard from "./pages/projectBoard/ProjectBoard";
-import CardInformation from "./pages/projectBoard/components/CardInformation";
 import Footer from "./components/footer";
 
 function App() {
@@ -43,10 +42,6 @@ function App() {
             <Route
               path="/project/:docId"
               element={user ? <ProjectBoard /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/project/:id/:cardId"
-              element={user ? <CardInformation /> : <Navigate to="/login" />}
             />
           </Routes>
           <Footer />

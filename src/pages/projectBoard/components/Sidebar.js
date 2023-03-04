@@ -222,32 +222,34 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                         )}
 
                         {showMenu && (
-                          <ul className="user-menu">
-                            {users
-                              .filter((allUser) => {
-                                return !coworkers.find(
-                                  (user) =>
-                                    user.uid === allUser.uid &&
-                                    user.name === allUser.name
-                                );
-                              })
-                              .map((member) => {
-                                const { displayName, uid } = member;
-                                return (
-                                  <li
-                                    key={uid}
-                                    className="option"
-                                    onClick={() => {
-                                      addProjectCoworkers(member);
-                                    }}
-                                  >
-                                    <div className="name-icon">
-                                      {displayName[0].toUpperCase()}
-                                    </div>
-                                    <div>{displayName}</div>
-                                  </li>
-                                );
-                              })}
+                          <>
+                            <ul className="user-menu">
+                              {users
+                                .filter((allUser) => {
+                                  return !coworkers.find(
+                                    (user) =>
+                                      user.uid === allUser.uid &&
+                                      user.name === allUser.name
+                                  );
+                                })
+                                .map((member) => {
+                                  const { displayName, uid } = member;
+                                  return (
+                                    <li
+                                      key={uid}
+                                      className="option"
+                                      onClick={() => {
+                                        addProjectCoworkers(member);
+                                      }}
+                                    >
+                                      <div className="name-icon">
+                                        {displayName[0].toUpperCase()}
+                                      </div>
+                                      <div>{displayName}</div>
+                                    </li>
+                                  );
+                                })}
+                            </ul>
                             <div
                               className="btn"
                               onClick={() => {
@@ -258,7 +260,7 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                             >
                               Close
                             </div>
-                          </ul>
+                          </>
                         )}
                       </div>
                     </>

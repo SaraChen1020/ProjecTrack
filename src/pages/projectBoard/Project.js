@@ -1,11 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCollection } from "../../hooks/useCollection";
 import { useNavigate } from "react-router-dom";
 
 export default function Project() {
-  const { user } = useAuthContext();
   const { documents, error, assigned, empty } = useCollection("project");
   const navigate = useNavigate();
 

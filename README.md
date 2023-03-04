@@ -8,8 +8,22 @@ ProjecTrack is a website which can record and track project progress. User can u
 
 :link: Website URL: https://projectrack-6042d.web.app/
 
-- Test Account : test@test.com
-- Test Password : 123456
+## Table of Content
+
+- [Development Structure](#Development-Structure)
+- [Frontend Technique](#Frontend-Technique)
+  - [Component Structure](#Component-Structure)
+  - [React Router](#React-Router)
+  - [Hook Api](#Hook-Api)
+  - [Custom Hook](#Custom-Hook)
+  - [Webpack & Babel](#Webpack--Babel)
+  - [Responsive Web Design](#Responsive-Web-Design)
+- [Back-end Technique (Firebase Cloud Services)](#-back-end-technique-firebase-cloud-services)
+  - [Firebase Authentication](#firebase-authentication)
+  - [Cloud Firestore](#cloud-firestore)
+  - [Firebase Hosting](#firebase-hosting)
+- [Main Features](#-main-features)
+- [Contact](#contact)
 
 ## Development Structure
 
@@ -19,10 +33,78 @@ The frontend development of ProjecTrack is based on **React** and employs **Reac
 <img src="src/images/skill-structure.png" />
 </p>
 
-## Frontend Technique
+## ✦ Frontend Technique
 
 ### Component Structure
 
 <p align="center">
 <img src="src/images/structure.png" />
 </p>
+
+### React Router
+
+- Version 6
+- Manage the routing for the Single Page Application (SPA)
+
+### Hook Api
+
+- `useContext`,`useReducer`,`useRef`,`useState`,`useEffect`
+
+### Custom Hook
+
+- Creating a custom hook to separate formulas
+  - `useAuthContext`
+  - `useSignup`
+  - `useLogin`
+  - `useLogout`
+  - `useAddProject`
+  - `useCollection`
+  - `useDocument`
+  - `useFetchUser`
+  - `useUpdateData`
+
+### Webpack & Babel
+
+- Webpack : A module bundler used for JavaScript applications.
+- Babel : A transpiler that supports different versions of JavaScript.
+
+### Responsive Web Design
+
+<p align="center">
+<img src="src/images/device.jpg" />
+</p>
+
+## ✦ Back-end Technique (Firebase Cloud Services)
+
+### Firebase Authentication
+
+- Support Google login and users' email & passwords sign up.
+
+### Cloud Firestore
+
+- To store all project's detail content.
+
+### Firebase Hosting
+
+- Hosting static and dynamic content of the web.
+
+## ✦ Main Features
+
+### Drag and drop (without third party library)
+
+<p align="center">
+<img src="src/images/dnd.gif" />
+</p>
+### Assign project to team up
+<p align="center">
+<img src="src/images/assign.gif" />
+</p>
+### Project content privacy
+<p align="center">
+<img src="src/images/privacy.gif" />
+</p>
+
+## Contact
+
+- 🐣 Szu-An, Chen
+- 📧 Email: k890244@gmail.com

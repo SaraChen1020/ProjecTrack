@@ -11,7 +11,7 @@ ProjecTrack is a website which can record and track project progress. User can u
 ## Table of Content
 
 - [Development Structure](#Development-Structure)
-- [Frontend Technique](#Frontend-Technique)
+- [Frontend Technique](#-Frontend-Technique)
   - [Component Structure](#Component-Structure)
   - [React Router](#React-Router)
   - [Hook Api](#Hook-Api)
@@ -95,11 +95,15 @@ The frontend development of ProjecTrack is based on **React** and employs **Reac
 <p align="center">
 <img src="src/images/dnd.gif" />
 </p>
+
 ### Assign project to team up
+
 <p align="center">
 <img src="src/images/assign.gif" />
 </p>
+
 ### Project content privacy
+
 <p align="center">
 <img src="src/images/privacy.gif" />
 </p>

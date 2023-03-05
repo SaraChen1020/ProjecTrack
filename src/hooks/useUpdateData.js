@@ -56,7 +56,12 @@ export const useUpdateData = () => {
       [`cards.byId.${newCardId}.lastEditedTime`]: Timestamp.now(),
       [`cards.byId.${newCardId}.lastEditedUser`]: user.displayName,
       [`cards.byId.${newCardId}.assignTo`]: [],
-      [`cards.byId.${newCardId}.content`]: "",
+      [`cards.byId.${newCardId}.content`]: `### Write something with markdown
+---
+- 
+- 
+---
+*Note:something note...*`,
     });
   };
 

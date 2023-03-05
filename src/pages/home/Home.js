@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import Line from "../../images/homepage_background.png";
 import Intro_1 from "../../images/intro-1.jpg";
-import DND_gif from "../../images/dnd.gif";
+import DND_gif from "../../images/dnd2.gif";
 import Intro_2 from "../../images/intro-2.jpg";
 import assign_gif from "../../images/assign.gif";
 import Intro_3 from "../../images/intro-3.jpg";
@@ -75,7 +75,7 @@ export default function Home() {
               <p>Non-team members can't view project through the link.</p>
             </div>
             <div className="intro-pic-area">
-              <img src={privacy_gif} alt="assign-gif" />
+              <img src={privacy_gif} alt="privacy-gif" />
             </div>
           </div>
         </div>

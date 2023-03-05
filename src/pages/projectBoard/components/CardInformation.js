@@ -46,6 +46,10 @@ export default function CardInformation({
     setCardTitle(cardValue.cardTitle);
   }, [cardValue.cardTitle]);
 
+  useEffect(() => {
+    setMarkdownText(cardValue.content);
+  }, [cardValue.content]);
+
   return (
     <div className="card-backdrop">
       <div className="card-info">

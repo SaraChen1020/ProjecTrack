@@ -31,7 +31,7 @@ export default function Home() {
               class="start-button"
               role="button"
               onClick={() => {
-                navigate("/project");
+                navigate("/login");
               }}
             >
               Get Start Now !
@@ -85,7 +85,7 @@ export default function Home() {
               <h2>Easy to browse in various devices.</h2>
               <p>With any device, you can easily browse content anytime.</p>
               <div className="btn">
-                <Link to="/project">Start Now !</Link>
+                <Link to="/login">Start Now !</Link>
               </div>
             </div>
             <div className="intro-pic-area">

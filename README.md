@@ -33,7 +33,7 @@ The frontend development of ProjecTrack is based on **React** and employs **Reac
 <img src="src/images/skill-structure.png" />
 </p>
 
-## ✦ Frontend Technique
+## ✦ Front-end Technique
 
 ### Component Structure
 
@@ -92,17 +92,23 @@ The frontend development of ProjecTrack is based on **React** and employs **Reac
 
 ### Drag and drop (without third party library)
 
+- By using draggable attribute on elements that can be dragged and dropped to different site.
+
 <p align="center">
-<img src="src/images/dnd.gif" />
+<img src="src/images/dnd2.gif" />
 </p>
 
-### Assign project to team up
+### Team up the project
+
+- You can assign team members to manage the project together.
 
 <p align="center">
 <img src="src/images/assign.gif" />
 </p>
 
-### Project content privacy
+### Protect your project from unauthorized access
+
+- Non-team members can't view project through the link.
 
 <p align="center">
 <img src="src/images/privacy.gif" />

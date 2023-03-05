@@ -7,8 +7,8 @@ import { TbAlertTriangle } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState(123456);
   const { login, googleLogin, isLoading, error } = useLogin();
 
   const handleSubmit = (e) => {

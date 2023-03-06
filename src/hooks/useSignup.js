@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { projectAuth, projectFirestore } from "../utils/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useAuthContext } from "./useAuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,34 +24,44 @@ export const useSignup = () => {
     setError(null);
 
     try {
-      const response = await createUserWithEmailAndPassword(
-        projectAuth,
-        email,
-        password
-      );
+      //先檢查displayName有無重複
+      const ref = collection(projectFirestore, "users");
+      const q = query(ref, where("displayName", "==", displayName));
+      const querySnapshot = await getDocs(q);
 
-      if (!response) {
-        throw new Error("Could not complete signup");
+      if (querySnapshot.empty) {
+        const response = await createUserWithEmailAndPassword(
+          projectAuth,
+          email,
+          password
+        );
+
+        if (!response) {
+          throw new Error("Could not complete signup");
+        }
+
+        // add display name to user
+        await updateProfile(projectAuth.currentUser, {
+          displayName,
+        });
+
+        // dispatch login action
+        dispatch({ type: "LOGIN", payload: response.user });
+
+        // 新增user collection存放會員uid
+        const userRef = doc(projectFirestore, "users", response.user.uid);
+        await setDoc(userRef, {
+          uid: response.user.uid,
+          displayName: response.user.displayName,
+        });
+
+        setError(null);
+        setIsLoading(false);
+        navigate("/project");
+      } else {
+        setError("DisplayName already in use");
+        setIsLoading(false);
       }
-
-      // add display name to user
-      await updateProfile(projectAuth.currentUser, {
-        displayName,
-      });
-
-      // dispatch login action
-      dispatch({ type: "LOGIN", payload: response.user });
-
-      // 新增user collection存放會員uid
-      const userRef = doc(projectFirestore, "users", response.user.uid);
-      await setDoc(userRef, {
-        uid: response.user.uid,
-        displayName: response.user.displayName,
-      });
-
-      setError(null);
-      setIsLoading(false);
-      navigate("/project");
     } catch (error) {
       switch (error.code) {
         case "auth/email-already-in-use":
